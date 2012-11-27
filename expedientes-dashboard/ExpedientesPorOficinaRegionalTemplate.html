@@ -1,0 +1,201 @@
+<script type="text/javascript" src="GetCDFResource?resource=/expedientes-dashboard/js/raphael.js"></script>
+<script type="text/javascript" src="GetCDFResource?resource=/expedientes-dashboard/js/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="GetCDFResource?resource=/expedientes-dashboard/js/mapsvg.js"></script>
+<script type="text/javascript" src="GetCDFResource?resource=/expedientes-dashboard/script/SelectQueryDefinitions.js"></script>
+<script type="text/javascript" src="GetCDFResource?resource=/expedientes-dashboard/script/oficinaRegional/OficinaRegionalQuery.js"></script>
+<script type="text/javascript" src="GetCDFResource?resource=/expedientes-dashboard/script/oficinaRegional/OficinaRegionalDefinitions.js"></script>
+
+<div class="container">
+<link rel="stylesheet" type="text/css" href="GetCDFResource?resource=/expedientes-dashboard/css/styledashboard.css" />
+    <div class="span-24">
+        <div id="togleParametros" class='mybox' >
+        </div>
+    </div>
+    <div class="span-24">
+        
+        <div class="span-11 colborder">
+            <div class='selector  span-4 ' >
+            <span> Fecha inicio: </span>
+            <div id='dateStartDate'  class='clearfix ' ></div>
+            </div>
+
+            <div class='selector span-4 last' >
+            <span> Fecha fin: </span>
+            <div id='dateEndDate'  class='clearfix ' ></div>
+            </div>
+            <div id="map" class="left"></div>
+
+        </div>
+        
+        <div id="charts" class="span-12 last">
+            <div class="span-12">
+                <div id="tableExpedientesAtendidos"></div>
+            </div>
+            
+            <div class="span-12 last">
+                <div id="piechartExpedientesAtendidos"></div>
+            </div>
+            <hr/>
+            <div class="span-12">
+                <div id="tableExpedientesRegistrados"></div>
+            </div>
+
+            <div class="span-12">
+                <div id="piechartExpedientesRegistrados"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+      
+    </div>
+
+<script language="javascript" type="text/javascript">
+
+//*****************************************************************************************************
+// rango de fechas
+
+componentStartDate = 
+{
+	name: "componentStartDate",
+	type: "dateInputComponent",
+	parameters:[],
+	parameter: "parameters.startDate",
+	htmlObject: "dateStartDate",
+	dateFormat: "yy-mm-dd",
+	startDate: "1999-05-31",
+	endDate: "TODAY",
+	executeAtStart: true,
+    tooltip: "Seleccione fecha inicio",
+	postChange: function(){
+    }
+};
+
+componentEndDate = 
+{
+	name: "componentEndDate",
+	type: "dateInputComponent",
+	parameters:[],
+	parameter: "parameters.endDate",
+	htmlObject: "dateEndDate",
+	dateFormat: "yy-mm-dd",
+	startDate: "1999-05-31",
+	endDate: "TODAY",
+	executeAtStart: true,
+	tooltip: "Seleccione fecha fin",
+	postChange: function() {       
+    }
+};
+//*****************************************************************************************************
+//Begin table definitions
+//*****************************************************************************************************
+// table definitions
+var tableExpedientesRegistrados = {
+    name: "tableExpedientesRegistrados",
+    type: "tableComponent",
+    listeners:["parameters.unidad"],
+    chartDefinition: TableDefinitions.expedientesRegistrados,
+    htmlObject: "tableExpedientesRegistrados",
+    executeAtStart: false,
+    postFetch:TableDefinitions.postExpedientesRegistrados,
+    postExecution:function(){}
+};
+
+var tableExpedientesAtendidos = {
+    name: "tableExpedientesAtendidos",
+    type: "tableComponent",
+    listeners:["parameters.unidad"],
+    chartDefinition: TableDefinitions.expedientesAtendidos,
+    htmlObject: "tableExpedientesAtendidos",
+    executeAtStart: false,
+    postFetch:TableDefinitions.postExpedientesAtendidos,
+    postExecution:function(){}
+};
+
+// pie chart definitions
+//*****************************************************************************************************
+var piechartExpedientesRegistrados = {
+	type: "CccPieChartComponent",
+	name: "piechartExpedientesRegistrados",
+    listeners:["parameters.unidad"],
+	chartDefinition: PiechartDefinitions.expedientesRegistrados,
+	parameters: [],
+    postFetch:function(values) {
+        return PiechartDefinitions.postFetch(values);
+    },
+	executeAtStart: false,
+	htmlObject: "piechartExpedientesRegistrados"
+};
+
+var piechartExpedientesAtendidos = {
+	type: "CccPieChartComponent",
+	name: "piechartExpedientesAtendidos",
+    listeners:["parameters.unidad"],
+	chartDefinition: PiechartDefinitions.expedientesAtendidos,
+	parameters: [],
+    postFetch:function(values) {
+        return PiechartDefinitions.postFetch(values);
+    },
+	executeAtStart: false,
+	htmlObject: "piechartExpedientesAtendidos"
+};
+//*****************************************************************************************************
+//*****************************************************************************************************
+var select = [ componentEndDate, componentStartDate];
+var tables = [ tableExpedientesRegistrados, tableExpedientesAtendidos];
+var piecharts  = [ piechartExpedientesRegistrados, piechartExpedientesAtendidos];
+
+var components = select.concat(tables, piecharts);
+
+</script>
+
+<script language="javascript" type="text/javascript">
+
+function load(){
+    $('#map').mapSvg({
+        source: 'resources/maps/peru.svg',
+        tooltipsMode: 'false', //tooltipsMode: 'names',
+        disableAll: true,
+        colors: {                        // Colors for each region state
+            base: "#F2F083",
+            background: "#3462F7", // Enter "transparent" for transparent background
+            hover: "#548eac",
+            selected: "#065A85",
+            disabled: "#F2F083",
+            stroke: "#3462F7"
+        },
+        regions :{
+            "continent":   {disabled:true,attr: {fill: '#ffffff'}},
+            "Hu\u00E1nuco":   {disabled:true,attr: {fill: '#C2B14F'}},
+            "Pasco":   {disabled:true,attr: {fill: '#C2B14F'}},
+            "Jun\u00EDn":   {disabled:true,attr: {fill: '#C2B14F'}},
+            "Huancavelica":   {disabled:true,attr: {fill: '#C2B14F'}},
+            "Ayacucho":   {disabled:true,attr: {fill: '#C2B14F'}},
+            "Apur\u00EDmac":   {disabled:true,attr: {fill: '#C2B14F'}},
+            "Cuzco":   {disabled:true,attr: {fill: '#C2B14F'}},
+            "Cajamarca":   {disabled:true,attr: {fill: '#C2B14F'}},
+            "Puno":   {disabled:true,attr: {fill: '#C2B14F'}},
+            "Amazonas":   {disabled:true,attr: {fill: '#55E668'}},
+            "San Mart\u00EDn":   {disabled:true,attr: {fill: '#55E668'}},
+            "Loreto":   {disabled:true,attr: {fill: '#55E668'}},
+            "Ucayali":   {disabled:true,attr: {fill: '#55E668'}},
+            "Madre de Dios":   {disabled:true,attr: {fill: '#55E668'}}
+        },
+        zoom: false,
+        onClick:   function(event, mapsvg){ 
+            console.log(this.name);
+        },
+        marks: MapDefinitions.Marks,
+        editMode:false,
+        width:         420,
+        height:        520
+    }
+    );
+    $('#charts').hide();
+
+    Dashboards.init(components);
+}
+
+load();
+
+</script>

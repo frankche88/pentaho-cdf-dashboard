@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdf>
+	<title>Expedientes por oficina Regional</title>
+	<author>Webdetails</author>
+	<description>Este dashboard muestra la cantidad de expedientes por oficina regional</description>
+	<icon></icon>
+	<template>Expedientes _por_oficina_regional_template.html</template>
+</cdf>

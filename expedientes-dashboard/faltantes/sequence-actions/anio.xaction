@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action-sequence> 
+  <title>anios</title>
+  <version>1</version>
+  <logging-level>ERROR</logging-level>
+  <documentation> 
+    <author/>  
+    <description>Empty blank action sequence document</description>  
+    <help/>  
+    <result-type>none</result-type>  
+    <icon/> 
+  </documentation>
+
+  <inputs> 
+    <anios type="result-set"> 
+      <default-value type="result-set">
+        <row>
+          <anio_id>2005</anio_id>
+          <anio_name>2012</anio_name>
+        </row>
+        <row>
+          <anio_id>2004</anio_id>
+          <anio_name>2011</anio_name>
+        </row>
+        <row>
+          <anio_id>2003</anio_id>
+          <anio_name>2010</anio_name>
+        </row>
+        <row>
+          <anio_id>2002</anio_id>
+          <anio_name>2009</anio_name>
+        </row>
+      </default-value>  
+      <columns>
+        <anio_id type="string"/>
+        <anio_name type="string"/>
+      </columns>
+    </anios> 
+  </inputs>
+
+  <outputs> 
+    <anios type="result-set"/> 
+  </outputs>
+
+  <resources/>
+  
+  <actions/> 
+</action-sequence>

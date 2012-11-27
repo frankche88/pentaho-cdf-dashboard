@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdf>
+	<title>REP03-Documentos registrados</title>
+	<author>fjonislla</author>
+	<description>Reporte de documentos por lugar donde fueron registrados</description>
+	<icon></icon>
+	<template>DocumentosRegistradosTemplate.html</template>
+</cdf>

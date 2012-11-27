@@ -1,0 +1,149 @@
+<script type="text/javascript" src="GetCDFResource?resource=/expedientes-dashboard/prueba_mapas/js/raphael.js"></script>
+<script type="text/javascript" src="GetCDFResource?resource=/expedientes-dashboard/prueba_mapas/js/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="GetCDFResource?resource=/expedientes-dashboard/prueba_mapas/js/mapsvg.js"></script>
+
+
+<!--span style="font-family: Arial;font-weight: bold ;margin-left:20pt;">CDF Samples - Charts</span>
+<br-->
+ <div class="container">
+      <h1>Expedientes por oficina regional</h1>
+      <hr>
+      <h2 class="alt">Seleccione la oficina reginal a consultar.</h2>
+
+      <hr>
+      <hr class="space">
+      <div class="span-12 prepend-1 colborder">
+        
+        <div id="map" class="top pull-1 left"></div>
+        
+      </div>
+      <div class="span-9 last">
+        <h3>Graficos por region</h3>
+        <div class="span-9 prepend-1 colborder">
+          <h6>Titulo del grafico 1</h6>
+          <div id="pieChart_object">
+          
+		
+          </div>
+          <p>Texto para el grafico.</p>
+        </div>
+        <div class="span-9 prepend-1 colborder last">
+          <h6>Titulo del grafico 2</h6>
+          <div id="barChart_object">
+          </div>
+          <p>Texto para el segundo grafico.</p>
+        </div>
+        
+        <div id="appBuildIDObj" ></div>
+        
+      </div>
+      <hr>
+      <h2 class="alt">Mensaje de osinergming y logo .</h2>
+      <hr>
+    </div>
+
+<script language="javascript" type="text/javascript">
+
+
+
+var productLine = "null";
+var territory = "null";
+
+title = 
+{
+  name: "title",
+  type: "text",
+  htmlObject: "title_object",
+  executeAtStart: true,
+  expression: function(){return "Charts examples"}
+}
+
+pieChart = 
+{
+  name: "pieChart",
+  type: "jFreeChartComponent",
+  listeners:["MetaLayerCharts.regionsMeasure"],
+  htmlObject: "pieChart_object",
+  executeAtStart: true
+}
+
+barChart = 
+{
+  name: "barChart",
+  type: "jFreeChartComponent",
+  listeners:["MetaLayerCharts.selectedRegionMeasure"],
+  htmlObject: "barChart_object",
+  executeAtStart: true
+}
+
+dialChart = 
+{
+  name: "dialChart",
+  type: "dialComponent",
+  listeners:["MetaLayerCharts.departmentMeasure"],
+  htmlObject: "dialChart_object",
+  executeAtStart: true
+}
+var render_appBuildIDBox = {
+	type: "AutocompleteBox",
+	name: "render_appBuildIDBox",
+	htmlObject: "appBuildIDObj",
+	listeners: [],
+	showApplyButton: true,
+	externalApplyButtonId: "applyButtonObj",
+	matchType: "fromStart",
+	minTextLenght: 6,
+	scrollHeight: 100,
+	selectMulti: false,
+	addTextElements: true,
+	executeAtStart: true
+
+};
+
+
+
+var components = [render_appBuildIDBox];
+
+</script>
+
+<script language="javascript" type="text/javascript">
+
+function load(){
+	
+    
+    
+     $('#map').mapSvg(
+        {source: 'resources/maps/peru.svg',
+        tooltipsMode: 'names',
+        regions :       {
+                  'continent': {disabled: true}},
+        
+zoom: true,
+zoomLimit: [0,5], 
+zoomDelta: 1.2,
+zoomButtons: {'show': true,
+              'location': 'left'}, 
+        onClick:   function(event, mapsvg){ 
+        console.log(this.name);
+        
+			
+            if("Hu\xe1nuco" == this.name){
+            MetaLayerCharts.selectedRegionMeasure = "[Region].[All Regions].[Central]";
+			Dashboards.fireChange("MetaLayerCharts.selectedRegionMeasure",MetaLayerCharts.selectedRegionMeasure);
+            }else{
+                MetaLayerCharts.regionsMeasure = "[Region].[All Regions].Children";
+                Dashboards.fireChange("MetaLayerCharts.regionsMeasure",MetaLayerCharts.regionsMeasure);
+                
+            }
+        },
+        width:         380,
+        height:        480
+        }
+        );
+        
+        Dashboards.init(components);
+}
+
+load();
+
+</script>

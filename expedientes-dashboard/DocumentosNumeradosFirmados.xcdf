@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdf>
+	<title>REP02-Documentos enumerados y firmados</title>
+	<author>fjonislla</author>
+	<description>Documentos Numerados y Firmados</description>
+	<icon></icon>
+	<template>DocumentosNumeradosFirmadosTemplate.html</template>
+</cdf>
