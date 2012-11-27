@@ -1,415 +1,414 @@
-<script type="text/javascript" src="GetCDFResource?resource=/expedientes-dashboard/script/SelectQueryDefinitions.js"></script>
-<script type="text/javascript" src="GetCDFResource?resource=/expedientes-dashboard/script/noatendidos/QueryNoAtendidos.js"></script>
-<script type="text/javascript" src="GetCDFResource?resource=/expedientes-dashboard/script/noatendidos/ExpedientesNoAtendidosChartsDefinitions.js"></script>
+<script type="text/javascript"
+	src="GetCDFResource?resource=/expedientes-dashboard/script/SelectQueryDefinitions.js"></script>
+<script type="text/javascript"
+	src="GetCDFResource?resource=/expedientes-dashboard/script/noatendidos/QueryNoAtendidos.js"></script>
+<script type="text/javascript"
+	src="GetCDFResource?resource=/expedientes-dashboard/script/noatendidos/ExpedientesNoAtendidosChartsDefinitions.js"></script>
 <style>
 </style>
 
 <div class="container">
-    <link rel="stylesheet" type="text/css" href="GetCDFResource?resource=/expedientes-dashboard/css/styledashboard.css" />
-      <div id='firstBlock'  class='clearfix ' >
-      <div class="span-23 last">
-      <div id="togleParametros" class='clearfix ' >
-      
-      </div>
-      </div>
-      <div class="span-23 last">
-        <div id='parametros'  class='mybox clearfix ' >
-      
-            <div class='selector gerencia span-12 ' >
-                <span> Gerencia: </span> 
+	<link rel="stylesheet" type="text/css"
+		href="GetCDFResource?resource=/expedientes-dashboard/css/styledashboard.css" />
+	<div id='firstBlock' class='clearfix '>
+		<div class="span-23 last">
+			<div id="togleParametros" class='clearfix '></div>
+		</div>
+		<div class="span-23 last">
+			<div id='parametros' class='mybox clearfix '>
 
-                <div id='comboGerencia'  class='clearfix ' >
-                </div>
-            </div>
-            <br/>
-            <div class='selector division span-8 last' >
-                <span> Unidad/Division: </span> 
+				<div class='selector gerencia span-12 '>
+					<span> Gerencia: </span>
 
-                <div id='comboUnidad'  class='clearfix ' >
-                </div>
-            </div>
-            <br/>
-            <div class='selector usuario span-8 last' >
-                <span> Usuario: </span> 
+					<div id='comboGerencia' class='clearfix '></div>
+				</div>
+				<br />
+				<div class='selector division span-8 last'>
+					<span> Unidad/Division: </span>
 
-                <div id='comboUsuario'  class='clearfix ' >
-                </div>
-            </div>
-            <br/>
-            <div class='selector flujo span-8 last' >
-                <span> Flujo documentario: </span> 
+					<div id='comboUnidad' class='clearfix '></div>
+				</div>
+				<br />
+				<div class='selector usuario span-8 last'>
+					<span> Usuario: </span>
 
-                <div id='comboFlujoDocumentario'  class='clearfix ' >
-                </div>
-            </div>
-           
-            <div class='selector  span-6 ' >
-                <span> Fecha inicio: </span>
-                <div id='dateStartDate'  class='clearfix ' ></div>
-            </div>
-            
-            <div class='selector span-6 last' >
-                <span> Fecha fin: </span>
-                <div id='dateEndDate'  class='clearfix ' ></div>
-            </div>
-            
-            <div class='selector span-6 ' >
-                <span></span>
-                <div id='btnEjecutarConsulta'  class='clearfix ' ></div>
-            </div>
+					<div id='comboUsuario' class='clearfix '></div>
+				</div>
+				<br />
+				<div class='selector flujo span-8 last'>
+					<span> Flujo documentario: </span>
 
-      </div>
-      
-      </div>
-      </div>
-<hr class ="space">
-    <div id="reporteFrame">
-      <div class="span-24 last">
+					<div id='comboFlujoDocumentario' class='clearfix '></div>
+				</div>
 
-      <div class="span-12 mybox ">
-        <div id="barchartAtendidosVsNo" class='clearfix '>
-        </div>
-      </div>
-      <div class="span-11 last mybox ">
-        <div id="tableAtendidosVsNoAtendidos" class='clearfix '>
-        </div>
-      </div>
-      </div>
+				<div class='selector  span-6 '>
+					<span> Fecha inicio: </span>
+					<div id='dateStartDate' class='clearfix '></div>
+				</div>
 
-     
-      
-      <hr class="space">
-      
-      <div class="span-24 last">
-      <div class="span-12 mybox " >
-        <div id="piechartPorFlujoNoAtendidos" class='clearfix '>
-        </div>
-     </div>
-      <div class="span-11 last mybox ">
-        <div id="piechartPorFlujoAtendidos" class=' clearfix '>
-        </div>
-     </div>
+				<div class='selector span-6 last'>
+					<span> Fecha fin: </span>
+					<div id='dateEndDate' class='clearfix '></div>
+				</div>
 
-      </div>
-      
-      <hr class="space">
-      
-      <div class="span-24 last">
-      <div class="span-12 mybox " >
-        <div id="tablePorFlujoNoAtendidos" class='clearfix '>
-        </div>
-     </div>
-      <div class="span-11 last mybox ">
-        <div id="tablePorFlujoAtendidos" class=' clearfix '>
-        </div>
-     </div>
+				<div class='selector span-6 '>
+					<span></span>
+					<div id='btnEjecutarConsulta' class='clearfix '></div>
+				</div>
 
-      </div>
-      
-      <hr>
-    </div>
-    </div>
+			</div>
 
-    
-    <script>
-//*****************************************************************************************************
-var executeReport = 
-{
-    name: "executeReport",
-    type: "Button",
-    buttonStyle:"classic",
-    listeners:[],
-    htmlObject: "btnEjecutarConsulta",
-    label: "Ver Reporte",
-    expression: function(){
-        if(functions.isFirstGreat(parameters.endDate, parameters.startDate)){
-            $("#reporteFrame").show();
-            Dashboards.fireChange("parameters.runConsult",true);
-        }else {
-            alert("verificar el rango de fechas");
-        }
-    },
-    executeAtStart: true,
-    preChange: function(){return true;},
-    postChange: function(){return true;},
-    tooltip: "Ejecutar consulta"
-}
-//*****************************************************************************************************
-    // Seccion de select
-// select para la gerencia
-gerenciaSelector = 
-{
-  name: "gerenciaSelector",
-  type: "select",
-  queryDefinition:SelectQueryDefinition.gerenciaQueryDefinition,
-  parameters:[],
-  parameter:"parameters.gerencia",
-  valueAsId: false,
-  externalPlugin:"chosen",
-  htmlObject: "comboGerencia",
-  executeAtStart: true,
-  preExecution:function() {},
-  postChange:function() {}
-}
-unidadSelector=
-{
-  name: "unidadSelector",
-  type: "select",
-  queryDefinition:SelectQueryDefinition.undadQueryDefinition,
-  parameters:[],
-  listeners:["parameters.gerencia"],
-  parameter:"parameters.unidad",
-  valueAsId: false,
-  externalPlugin:"chosen",
-  htmlObject: "comboUnidad",
-  executeAtStart: false,
-  preExecution:function() {},
-  postChange:function() {}
-}
-usuarioSelector=
-{
-  name: "usuarioSelector",
-  type: "select",
-  queryDefinition:SelectQueryDefinition.usuarioQueryDefinition,
-  parameters:[],
-  listeners:["parameters.unidad", "parameters.gerencia"],
-  parameter:"parameters.usuario",
-  valueAsId: false,
-  externalPlugin:"chosen",
-  htmlObject: "comboUsuario",
-  executeAtStart: false,
-  preExecution:function() {},
-  postChange:function() {}
-}
-flujoSelector=
-{
-  name: "flujoSelector",
-  type: "selectMulti",
-  queryDefinition:SelectQueryDefinition.flujoQueryDefinition,
-  parameters:[],
-  parameter:"parameters.flujo",
-  valueAsId: false,
-  externalPlugin:"chosen",
-  htmlObject: "comboFlujoDocumentario",
-  executeAtStart: true,
-  size: "10",
-  postChange:function(){
-	var par = Dashboards.getParameterValue(this.parameter);    
-    if(par.length<1){
-        Dashboards.setParameter(this.parameter,["-1"]);
-        window[this.name].update();
-    }
-	if(par.length>1){
-		par = $.grep(par, function(value) {
-		  return value != "-1";
+		</div>
+	</div>
+	<hr class="space">
+	<div id="reporteFrame">
+		<div class="span-24 last">
+			<div class="span-12 mybox ">
+				<div id="barchartAtendidosVsNo" class='clearfix '></div>
+			</div>
+			<div class="span-11 last mybox ">
+				<div id="tableAtendidosVsNoAtendidos" class='clearfix '></div>
+			</div>
+		</div>
+
+		<hr class="space">
+
+		<div class="span-24 last">
+			<div class="span-12 mybox ">
+				<div id="piechartPorRemitenteNoAtendidos" class='clearfix '></div>
+			</div>
+			<div class="span-11 last mybox ">
+				<div id="piechartPorRemitenteAtendidos" class=' clearfix '></div>
+			</div>
+
+		</div>
+
+		<hr class="space">
+
+		<div class="span-24 last">
+			<div class="span-12 mybox ">
+				<div id="tablePorFlujoNoAtendidos" class='clearfix '></div>
+			</div>
+			<div class="span-11 last mybox ">
+				<div id="tablePorFlujoAtendidos" class=' clearfix '></div>
+			</div>
+
+		</div>
+
+		<hr>
+	</div>
+</div>
+
+
+<script>
+	//*****************************************************************************************************
+	var executeReport = {
+		name : "executeReport",
+		type : "Button",
+		buttonStyle : "classic",
+		listeners : [],
+		htmlObject : "btnEjecutarConsulta",
+		label : "Ver Reporte",
+		expression : function() {
+			if (functions
+					.isFirstGreat(parameters.endDate, parameters.startDate)) {
+				$("#reporteFrame").show();
+				Dashboards.fireChange("parameters.runConsult", true);
+			} else {
+				alert("verificar el rango de fechas");
+			}
+		},
+		executeAtStart : true,
+		preChange : function() {
+			return true;
+		},
+		postChange : function() {
+			return true;
+		},
+		tooltip : "Ejecutar consulta"
+	}
+	//*****************************************************************************************************
+	// Seccion de select
+	// select para la gerencia
+	gerenciaSelector = {
+		name : "gerenciaSelector",
+		type : "select",
+		queryDefinition : SelectQueryDefinition.gerenciaQueryDefinition,
+		parameters : [],
+		parameter : "parameters.gerencia",
+		valueAsId : false,
+		externalPlugin : "chosen",
+		htmlObject : "comboGerencia",
+		executeAtStart : true,
+		preExecution : function() {
+		},
+		postChange : function() {
+		}
+	}
+	unidadSelector = {
+		name : "unidadSelector",
+		type : "select",
+		queryDefinition : SelectQueryDefinition.undadQueryDefinition,
+		parameters : [],
+		listeners : [ "parameters.gerencia" ],
+		parameter : "parameters.unidad",
+		valueAsId : false,
+		externalPlugin : "chosen",
+		htmlObject : "comboUnidad",
+		executeAtStart : false,
+		preExecution : function() {
+		},
+		postChange : function() {
+		}
+	}
+	usuarioSelector = {
+		name : "usuarioSelector",
+		type : "select",
+		queryDefinition : SelectQueryDefinition.usuarioQueryDefinition,
+		parameters : [],
+		listeners : [ "parameters.unidad", "parameters.gerencia" ],
+		parameter : "parameters.usuario",
+		valueAsId : false,
+		externalPlugin : "chosen",
+		htmlObject : "comboUsuario",
+		executeAtStart : false,
+		preExecution : function() {
+		},
+		postChange : function() {
+		}
+	}
+	flujoSelector = {
+		name : "flujoSelector",
+		type : "selectMulti",
+		queryDefinition : SelectQueryDefinition.flujoQueryDefinition,
+		parameters : [],
+		parameter : "parameters.flujo",
+		valueAsId : false,
+		externalPlugin : "chosen",
+		htmlObject : "comboFlujoDocumentario",
+		executeAtStart : true,
+		size : "10",
+		postChange : function() {
+			var par = Dashboards.getParameterValue(this.parameter);
+			if (par.length < 1) {
+				Dashboards.setParameter(this.parameter, [ "-1" ]);
+				window[this.name].update();
+			}
+			if (par.length > 1) {
+				par = $.grep(par, function(value) {
+					return value != "-1";
+				});
+				Dashboards.setParameter(this.parameter, par);
+				window[this.name].update();
+			}
+			Dashboards.saveStorage();
+		},
+		preExecution : function() {
+		},
+		postChange : function() {
+		}
+	}
+
+	clienteSelector = {
+		name : "clienteSelector",
+		type : "select",
+		queryDefinition : SelectQueryDefinition.clienteQueryDefinition,
+		parameters : [],
+		parameter : "parameters.cliente",
+		valueAsId : false,
+		externalPlugin : "chosen",
+		htmlObject : "comboCliente",
+		executeAtStart : false,
+		preExecution : function() {
+		},
+		postChange : function() {
+		}
+	}
+
+	//*****************************************************************************************************
+	// fin seccion Select
+	// rango de fechas
+
+	componentStartDate = {
+		name : "componentStartDate",
+		type : "dateInputComponent",
+		parameters : [],
+		parameter : "parameters.startDate",
+		htmlObject : "dateStartDate",
+		dateFormat : "yy-mm-dd",
+		startDate : "1999-05-31",
+		endDate : "TODAY",
+		executeAtStart : true,
+		tooltip : "Seleccione fecha inicio",
+		postChange : function() {
+			console.log("eligio la fecha: " + parameters.startDate);
+			if (functions
+					.isFirstGreat(parameters.endDate, parameters.startDate)) {
+				//Dashboards.fireChange("parameters.runConsult",true);
+				console.log("Fecha Inicio: " + parameters.startDate);
+				console.log("Fecha Fin: " + parameters.endDate);
+				console.log("Fecha Gerencia: " + parameters.gerencia);
+			}
+		}
+	};
+
+	componentEndDate = {
+		name : "componentEndDate",
+		type : "dateInputComponent",
+		parameters : [],
+		parameter : "parameters.endDate",
+		htmlObject : "dateEndDate",
+		dateFormat : "yy-mm-dd",
+		startDate : "1999-05-31",
+		endDate : "TODAY",
+		executeAtStart : true,
+		tooltip : "Seleccione fecha fin",
+		postChange : function() {
+			console.log("You chose: " + parameters.endDate);
+			if (functions
+					.isFirstGreat(parameters.endDate, parameters.startDate)) {
+				//Dashboards.fireChange("parameters.changeDate",true);
+				console.log("Fecha Inicio: " + parameters.startDate);
+				console.log("Fecha Fin: " + parameters.endDate);
+				console.log("Fecha Gerencia: " + parameters.gerencia);
+			}
+		}
+	};
+	//*****************************************************************************************************
+	//Begin table definitions
+	//*****************************************************************************************************
+	// table definitions
+	var tableAtendidosVsNoAtendidos = {
+		name : "tableAtendidosVsNoAtendidos",
+		type : "tableComponent",
+		listeners : [ "parameters.runConsult" ],
+		chartDefinition : TableDefinition.atendidosVsNoAtendidos,
+		htmlObject : "tableAtendidosVsNoAtendidos",
+		executeAtStart : false,
+		postFetch : postFetchDefinitions.tableAtendidosVsNoAtendidos,
+		postExecution : function() {
+		}
+	};
+
+	var tablePorFlujoAtendidos = {
+		name : "tablePorFlujoAtendidos",
+		type : "tableComponent",
+		listeners : [ "parameters.runConsult" ],
+		chartDefinition : TableDefinition.porRemitenteAtendidos,
+		htmlObject : "tablePorFlujoAtendidos",
+		executeAtStart : false,
+		postExecution : function() {
+		}
+	};
+
+	var tablePorFlujoNoAtendidos = {
+		name : "tablePorFlujoNoAtendidos",
+		type : "tableComponent",
+		listeners : [ "parameters.runConsult" ],
+		chartDefinition : TableDefinition.porRemitenteNoAtendidos,
+		htmlObject : "tablePorFlujoNoAtendidos",
+		executeAtStart : false,
+		postExecution : function() {
+		}
+	};
+	//*****************************************************************************************************
+	//Begin chart definitions
+	//*****************************************************************************************************
+	// bar chart definitions
+	//protovis test
+	var barchartAtendidosVsNo = {
+		type : "CccBarChartComponent",
+		name : "barchartAtendidosVsNo",
+		listeners : [ "parameters.runConsult" ],
+		chartDefinition : barhartDefinitions.atendidosVsNoatendidos,
+		postFetch : function(values) {
+			var length = values.resultset.length;
+			if (length == 0) {
+				this.chartDefinition.height = 100;
+			} else if (length < 5) {
+				this.chartDefinition.height = 200;
+			} else if (length < 10) {
+				this.chartDefinition.height = 300;
+			} else {
+				var iterv = length / 10;
+				this.chartDefinition.height = 200 * iterv;
+			}
+			return values;
+		},
+		parameters : [],
+		executeAtStart : false,
+		htmlObject : "barchartAtendidosVsNo",
+		postExecution : function(value) {
+		}
+	};
+
+	// pie chart definitions
+	//*****************************************************************************************************
+	var piechartPorRemitenteNoAtendidos = {
+		type : "CccPieChartComponent",
+		name : "piechartPorRemitenteNoAtendidos",
+		listeners : [ "parameters.runConsult" ],
+		chartDefinition : piechartDefinitions.porRemitenteNoAtendidos,
+		parameters : [],
+		postFetch : function(values) {
+			var length = values.resultset.length;
+			if (length == 0) {
+				this.chartDefinition.height = 100;
+			} else if (length < 10) {
+				this.chartDefinition.height = 300;
+			} else {
+				var iterv = length / 10;
+				this.chartDefinition.height = 300 + (95 * iterv);
+			}
+			return piechartDefinitions.postFetch(values);
+		},
+		executeAtStart : false,
+		htmlObject : "piechartPorRemitenteNoAtendidos"
+	};
+
+	var piechartPorRemitenteAtendidos = {
+		type : "CccPieChartComponent",
+		name : "piechartPorRemitenteAtendidos",
+		listeners : [ "parameters.runConsult" ],
+		chartDefinition : piechartDefinitions.porRemitenteAtendidos,
+		parameters : [],
+		postFetch : function(values) {
+			var length = values.resultset.length;
+			if (length == 0) {
+				this.chartDefinition.height = 100;
+			} else if (length < 10) {
+				this.chartDefinition.height = 300;
+			} else {
+				var iterv = length / 10;
+				this.chartDefinition.height = 300 + (95 * iterv);
+			}
+			return piechartDefinitions.postFetch(values);
+		},
+		executeAtStart : false,
+		htmlObject : "piechartPorRemitenteAtendidos"
+	};
+	//*****************************************************************************************************
+	//var components = [gerenciaSelector,unidadSelector, usuarioSelector, flujoSelector, clienteSelector, componentEndDate, componentStartDate, barchartAtendidosVsNo, piechartPorRemitenteAtendidos, piechartPorRemitenteNoAtendidos, tableAtendidosVsNoAtendidos];
+	//var components = [ gerenciaSelector,unidadSelector, usuarioSelector, flujoSelector, clienteSelector, componentEndDate, componentStartDate];
+
+	var select = [ flujoSelector, gerenciaSelector, unidadSelector,
+			usuarioSelector, componentEndDate, componentStartDate ];
+	var tables = [ tableAtendidosVsNoAtendidos, tablePorFlujoAtendidos,
+			tablePorFlujoNoAtendidos ];
+	var chart = [ barchartAtendidosVsNo, piechartPorRemitenteAtendidos,
+	              piechartPorRemitenteNoAtendidos ];
+	var button = [ executeReport ];
+	var components = select.concat(tables, chart, button);
+</script>
+
+<script language="javascript" type="text/javascript">
+	function load() {
+		$("#togleParametros").click(function() {
+			$("#parametros").toggle();
 		});
-        Dashboards.setParameter(this.parameter,par);
-        window[this.name].update();
-    }
-	Dashboards.saveStorage();
-  },
-  preExecution:function() {},
-  postChange:function() {}
-}
 
-clienteSelector = 
-{
-  name: "clienteSelector",
-  type: "select",
-  queryDefinition:SelectQueryDefinition.clienteQueryDefinition,
-  parameters:[],
-  parameter:"parameters.cliente",
-  valueAsId: false,
-  externalPlugin:"chosen",
-  htmlObject: "comboCliente",
-  executeAtStart: false,
-  preExecution:function() {},
-  postChange:function() {}
-}
-
-
-//*****************************************************************************************************
-// fin seccion Select
-// rango de fechas
-
-componentStartDate = 
-{
-	name: "componentStartDate",
-	type: "dateInputComponent",
-	parameters:[],
-	parameter: "parameters.startDate",
-	htmlObject: "dateStartDate",
-	dateFormat: "yy-mm-dd",
-	startDate: "1999-05-31",
-	endDate: "TODAY",
-	executeAtStart: true,
-    tooltip: "Seleccione fecha inicio",
-	postChange: function(){
-        console.log("eligio la fecha: " + parameters.startDate);
-        if(functions.isFirstGreat(parameters.endDate, parameters.startDate)){
-            //Dashboards.fireChange("parameters.runConsult",true);
-            console.log("Fecha Inicio: " + parameters.startDate);
-            console.log("Fecha Fin: " + parameters.endDate);
-            console.log("Fecha Gerencia: " + parameters.gerencia);
-        }
-    }
-};
-
-componentEndDate = 
-{
-	name: "componentEndDate",
-	type: "dateInputComponent",
-	parameters:[],
-	parameter: "parameters.endDate",
-	htmlObject: "dateEndDate",
-	dateFormat: "yy-mm-dd",
-	startDate: "1999-05-31",
-	endDate: "TODAY",
-	executeAtStart: true,
-	tooltip: "Seleccione fecha fin",
-	postChange: function(){console.log("You chose: " + parameters.endDate);
-        if(functions.isFirstGreat(parameters.endDate, parameters.startDate)){
-            //Dashboards.fireChange("parameters.changeDate",true);
-            console.log("Fecha Inicio: " + parameters.startDate);
-            console.log("Fecha Fin: " + parameters.endDate);
-            console.log("Fecha Gerencia: " + parameters.gerencia);
-        }        
-    }
-};
-//*****************************************************************************************************
-//Begin table definitions
-//*****************************************************************************************************
-// table definitions
-var tableAtendidosVsNoAtendidos = {
-    name: "tableAtendidosVsNoAtendidos",
-    type: "tableComponent",
-    listeners:["parameters.runConsult"],
-    chartDefinition: TableDefinition.atendidosVsNoAtendidos,
-    htmlObject: "tableAtendidosVsNoAtendidos",
-    executeAtStart: false,
-    postFetch:ChartDefinitions.postFetchTable,
-    postExecution:function(){}
-};
-
-var tablePorFlujoAtendidos = {
-    name: "tablePorFlujoAtendidos",
-    type: "tableComponent",
-    listeners:["parameters.runConsult"],
-    chartDefinition: TableDefinition.porFlujoAtendidos,
-    htmlObject: "tablePorFlujoAtendidos",
-    executeAtStart: false,
-    postExecution:function(){}
-};
-
-var tablePorFlujoNoAtendidos = {
-    name: "tablePorFlujoNoAtendidos",
-    type: "tableComponent",
-    listeners:["parameters.runConsult"],
-    chartDefinition: TableDefinition.porFlujoNoAtendidos,
-    htmlObject: "tablePorFlujoNoAtendidos",
-    executeAtStart: false,
-    postExecution:function(){}
-};
-//*****************************************************************************************************
-//Begin chart definitions
-//*****************************************************************************************************
-// bar chart definitions
-//protovis test
-var barchartAtendidosVsNo = {
-	type: "CccBarChartComponent",
-	name: "barchartAtendidosVsNo",
-    listeners:["parameters.runConsult"],
-    chartDefinition: ChartDefinitions.atendidosVsNoChartDefinition,
-    postFetch:function(values){
-        var length = values.resultset.length;
-        if(length == 0){
-            this.chartDefinition.height = 100;
-        }else if(length < 5) {
-            this.chartDefinition.height = 200;
-        }else if(length < 10) {
-            this.chartDefinition.height = 300;
-        }else {
-            var iterv = length/10;
-            this.chartDefinition.height = 200*iterv;
-        }
-        return values;
-    },
-	parameters: [],
-	executeAtStart: false,
-	htmlObject: "barchartAtendidosVsNo",
-    postExecution:function(value) {
-    }
-};
-
-// pie chart definitions
-//*****************************************************************************************************
-var piechartPorFlujoNoAtendidos = {
-	type: "CccPieChartComponent",
-	name: "piechartPorFlujoNoAtendidos",
-    listeners:["parameters.runConsult"],
-	chartDefinition: ChartDefinitions.porFlujoNoAtendidosChartDefinition,
-	parameters: [],
-    postFetch:function(values) {
-        var length = values.resultset.length;
-        if(length == 0){
-            this.chartDefinition.height = 100;
-        }else if(length < 10) {
-            this.chartDefinition.height = 300;
-        }else {
-            var iterv = length/10;
-            this.chartDefinition.height = 300 +(95*iterv);
-        }
-        return ChartDefinitions.postFetch(values);
-    },
-	executeAtStart: false,
-	htmlObject: "piechartPorFlujoNoAtendidos"
-};
-
-var piechartPorFlujoAtendidos = {
-	type: "CccPieChartComponent",
-	name: "piechartPorFlujoAtendidos",
-    listeners:["parameters.runConsult"],
-	chartDefinition: ChartDefinitions.porFlujoAtendidosChartDefinition,
-	parameters: [],
-    postFetch:function(values) {
-        var length = values.resultset.length;
-        if(length == 0){
-            this.chartDefinition.height = 100;
-        }else if(length < 10) {
-            this.chartDefinition.height = 300;
-        }else {
-            var iterv = length/10;
-            this.chartDefinition.height = 300 +(95*iterv);
-        }
-        return ChartDefinitions.postFetch(values);
-    },
-	executeAtStart: false,
-	htmlObject: "piechartPorFlujoAtendidos"
-};
-//*****************************************************************************************************
-//var components = [gerenciaSelector,unidadSelector, usuarioSelector, flujoSelector, clienteSelector, componentEndDate, componentStartDate, barchartAtendidosVsNo, piechartPorFlujoAtendidos, piechartPorFlujoNoAtendidos, tableAtendidosVsNoAtendidos];
-//var components = [ gerenciaSelector,unidadSelector, usuarioSelector, flujoSelector, clienteSelector, componentEndDate, componentStartDate];
-
-var select = [ flujoSelector, gerenciaSelector, unidadSelector, usuarioSelector, componentEndDate, componentStartDate];
-var tables = [ tableAtendidosVsNoAtendidos, tablePorFlujoAtendidos, tablePorFlujoNoAtendidos];
-var chart  = [ barchartAtendidosVsNo, piechartPorFlujoAtendidos, piechartPorFlujoNoAtendidos];
-var button  = [ executeReport];
-var components = select.concat(tables, chart, button);
-        
-    </script>
-    
-    <script language="javascript" type="text/javascript">
-
-
-function load(){
-     $("#togleParametros").click(function(){
-        $("#parametros").toggle();
-    });
-    
-    $("#reporteFrame").hide();
-	Dashboards.init(components);
-}
-
-load();
-
+		$("#reporteFrame").hide();
+		Dashboards.init(components);
+	}
+	load();
 </script>

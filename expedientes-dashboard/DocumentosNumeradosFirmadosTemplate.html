@@ -1,398 +1,413 @@
-<script type="text/javascript" src="GetCDFResource?resource=/expedientes-dashboard/script/SelectQueryDefinitions.js"></script>
-<script type="text/javascript" src="GetCDFResource?resource=/expedientes-dashboard/script/firmados/FirmadosQuery.js"></script>
-<script type="text/javascript" src="GetCDFResource?resource=/expedientes-dashboard/script/firmados/FirmadosDefinitions.js"></script>
+<script type="text/javascript"
+	src="GetCDFResource?resource=/expedientes-dashboard/script/SelectQueryDefinitions.js"></script>
+<script type="text/javascript"
+	src="GetCDFResource?resource=/expedientes-dashboard/script/firmados/FirmadosQuery.js"></script>
+<script type="text/javascript"
+	src="GetCDFResource?resource=/expedientes-dashboard/script/firmados/FirmadosDefinitions.js"></script>
 <style>
 </style>
 
 <div class="container">
-    <link rel="stylesheet" type="text/css" href="GetCDFResource?resource=/expedientes-dashboard/css/styledashboard.css" />
-    <div id='firstBlock'  class='clearfix ' >
-        <div class="span-23 last">
-            <div id="togleParametros" class='mybox clearfix' >
-            </div>
-        </div>
-        <div class="span-23 last">
-            <div id='parametros'  class='mybox clearfix ' >
+	<link rel="stylesheet" type="text/css"
+		href="GetCDFResource?resource=/expedientes-dashboard/css/styledashboard.css" />
+	<div id='firstBlock' class='clearfix '>
+		<div class="span-23 last">
+			<div id="togleParametros" class='mybox clearfix'></div>
+		</div>
+		<div class="span-23 last">
+			<div id='parametros' class='mybox clearfix '>
 
-                <div class='selector gerencia span-12 ' >
-                    <span> Gerencia: </span>
-                    <div id='comboGerencia'  class='clearfix ' ></div>
-                </div>
+				<div class='selector gerencia span-12 '>
+					<span> Gerencia: </span>
+					<div id='comboGerencia' class='clearfix '></div>
+				</div>
 
-                <div class='selector division span-8 last' >
-                    <span> Unidad/Division: </span> 
-                    <div id='comboUnidad'  class='clearfix ' ></div>
-                </div>
+				<div class='selector division span-8 last'>
+					<span> Unidad/Division: </span>
+					<div id='comboUnidad' class='clearfix '></div>
+				</div>
 
-                <div class='selector usuario span-8 last' >
-                    <span> Usuario: </span>
-                    <div id='comboUsuario'  class='clearfix ' ></div>
-                </div>
+				<div class='selector usuario span-8 last'>
+					<span> Usuario: </span>
+					<div id='comboUsuario' class='clearfix '></div>
+				</div>
 
-                <div class='selector flujo span-8 last' >
-                    <span> Flujo documentario: </span>
-                    <div id='comboFlujoDocumentario'  class='clearfix ' ></div>
-                </div>
+				<div class='selector flujo span-8 last'>
+					<span> Flujo documentario: </span>
+					<div id='comboFlujoDocumentario' class='clearfix '></div>
+				</div>
 
-                <div class='selector documento span-8 last' >
-                    <span> Tipo de documento: </span>
-                    <div id='comboTipoDocumento'  class='clearfix ' ></div>
-                </div>
+				<div class='selector documento span-8 last'>
+					<span> Tipo de documento: </span>
+					<div id='comboTipoDocumento' class='clearfix '></div>
+				</div>
 
-                <div class='selector  span-6 ' >
-                    <span> Fecha inicio: </span>
-                    <div id='dateStartDate'  class='clearfix ' ></div>
-                </div>
+				<div class='selector  span-6 '>
+					<span> Fecha inicio: </span>
+					<div id='dateStartDate' class='clearfix '></div>
+				</div>
 
-                <div class='selector span-6 last' >
-                    <span> Fecha fin: </span>
-                    <div id='dateEndDate'  class='clearfix ' ></div>
-                </div>
+				<div class='selector span-6 last'>
+					<span> Fecha fin: </span>
+					<div id='dateEndDate' class='clearfix '></div>
+				</div>
 
-                <div class='selector span-6 ' >
-                    <span></span>
-                    <div id='btnEjecutarConsulta'  class='clearfix ' ></div>
-                </div>
+				<div class='selector span-6 '>
+					<span></span>
+					<div id='btnEjecutarConsulta' class='clearfix '></div>
+				</div>
 
-            </div>
+			</div>
 
-        </div>
-    </div>
-    <div id="reporteFrame">
-        <hr class ="space">
-        <!-- enumerados-->
-        <div class="span-24 last">
-            <div class="span-12 mybox ">
-                <div id="barchartEnumerados" class='clearfix '></div>
-            </div>
-            
-            <div class="span-11 last mybox ">
-                <div id="tableEnumerados" class='clearfix '></div>
-            </div>
-        </div>
-        <!-- firmados-->
-        <div class="span-24 last">
-            <div class="span-12 mybox ">
-                <div id="barchartFirmados" class='clearfix '></div>
-            </div>
-            
-            <div class="span-11 last mybox ">
-                <div id="tableFirmados" class='clearfix '></div>
-            </div>
-        </div>
-        <!-- enumerados y firmados -->
-        <div class="span-24 last">
-            <div class="span-12 mybox ">
-                <div id="barchartEnumeradosFirmados" class='clearfix '></div>
-            </div>
-            
-            <div class="span-11 last mybox ">
-                <div id="tableEnumeradosFirmados" class='clearfix '></div>
-            </div>
-        </div>
+		</div>
+	</div>
+	<div id="reporteFrame">
+		<hr class="space">
+		<!-- enumerados-->
+		<div class="span-24 last">
+			<div class="span-12 mybox ">
+				<div id="barchartEnumerados" class='clearfix '></div>
+			</div>
 
-    </div>
+			<div class="span-11 last mybox ">
+				<div id="tableEnumerados" class='clearfix '></div>
+			</div>
+		</div>
+		<!-- firmados-->
+		<div class="span-24 last">
+			<div class="span-12 mybox ">
+				<div id="barchartFirmados" class='clearfix '></div>
+			</div>
+
+			<div class="span-11 last mybox ">
+				<div id="tableFirmados" class='clearfix '></div>
+			</div>
+		</div>
+		<!-- enumerados y firmados -->
+		<div class="span-24 last">
+			<div class="span-12 mybox ">
+				<div id="barchartEnumeradosFirmados" class='clearfix '></div>
+			</div>
+
+			<div class="span-11 last mybox ">
+				<div id="tableEnumeradosFirmados" class='clearfix '></div>
+			</div>
+		</div>
+
+	</div>
 </div>
 
-    
-    <script>
-//*****************************************************************************************************
-var executeReport = 
-{
-    name: "executeReport",
-    type: "Button",
-    buttonStyle:"classic",
-    listeners:[],
-    htmlObject: "btnEjecutarConsulta",
-    label: "Ver Reporte",
-    expression: function(){
-        if(functions.isFirstGreat(parameters.endDate, parameters.startDate)){
-            $("#reporteFrame").show();
-            Dashboards.fireChange("parameters.runConsult",true);
-        }else {
-            alert("verificar el rango de fechas");
-        }
-    },
-    executeAtStart: true,
-    preChange: function(){return true;},
-    postChange: function(){return true;},
-    tooltip: "Ejecutar consulta"
-}
-//*****************************************************************************************************
-    // Seccion de select
-// select para la gerencia
-gerenciaSelector = 
-{
-  name: "gerenciaSelector",
-  type: "select",
-  queryDefinition:SelectQueryDefinition.gerenciaQueryDefinition,
-  parameters:[],
-  parameter:"parameters.gerencia",
-  valueAsId: false,
-  externalPlugin:"chosen",
-  htmlObject: "comboGerencia",
-  executeAtStart: true,
-  preExecution:function() {},
-  postChange:function() {}
-}
-unidadSelector=
-{
-  name: "unidadSelector",
-  type: "select",
-  queryDefinition:SelectQueryDefinition.undadQueryDefinition,
-  parameters:[],
-  listeners:["parameters.gerencia"],
-  parameter:"parameters.unidad",
-  valueAsId: false,
-  externalPlugin:"chosen",
-  htmlObject: "comboUnidad",
-  executeAtStart: false,
-  preExecution:function() {},
-  postChange:function() {}
-}
-usuarioSelector=
-{
-  name: "usuarioSelector",
-  type: "select",
-  queryDefinition:SelectQueryDefinition.usuarioQueryDefinition,
-  parameters:[],
-  listeners:["parameters.unidad", "parameters.gerencia"],
-  parameter:"parameters.usuario",
-  valueAsId: false,
-  externalPlugin:"chosen",
-  htmlObject: "comboUsuario",
-  executeAtStart: false,
-  preExecution:function() {},
-  postChange:function() {}
-}
-flujoSelector=
-{
-  name: "flujoSelector",
-  type: "selectMulti",
-  queryDefinition:SelectQueryDefinition.flujoQueryDefinition,
-  parameters:[],
-  parameter:"parameters.flujo",
-  valueAsId: false,
-  externalPlugin:"chosen",
-  htmlObject: "comboFlujoDocumentario",
-  executeAtStart: true,
-  size: "10",
-  postChange:function(){
-	var par = Dashboards.getParameterValue(this.parameter);    
-    if(par.length<1){
-        Dashboards.setParameter(this.parameter,["-1"]);
-        window[this.name].update();
-    }
-	if(par.length>1){
-		par = $.grep(par, function(value) {
-		  return value != "-1";
+
+<script>
+	//*****************************************************************************************************
+	var executeReport = {
+		name : "executeReport",
+		type : "Button",
+		buttonStyle : "classic",
+		listeners : [],
+		htmlObject : "btnEjecutarConsulta",
+		label : "Ver Reporte",
+		expression : function() {
+			if (functions
+					.isFirstGreat(parameters.endDate, parameters.startDate)) {
+				$("#reporteFrame").show();
+				Dashboards.fireChange("parameters.runConsult", true);
+			} else {
+				alert("verificar el rango de fechas");
+			}
+		},
+		executeAtStart : true,
+		preChange : function() {
+			return true;
+		},
+		postChange : function() {
+			return true;
+		},
+		tooltip : "Ejecutar consulta"
+	}
+	//*****************************************************************************************************
+	// Seccion de select
+	// select para la gerencia
+	gerenciaSelector = {
+		name : "gerenciaSelector",
+		type : "select",
+		queryDefinition : SelectQueryDefinition.gerenciaQueryDefinition,
+		parameters : [],
+		parameter : "parameters.gerencia",
+		valueAsId : false,
+		externalPlugin : "chosen",
+		htmlObject : "comboGerencia",
+		executeAtStart : true,
+		preExecution : function() {
+		},
+		postChange : function() {
+		}
+	}
+	unidadSelector = {
+		name : "unidadSelector",
+		type : "select",
+		queryDefinition : SelectQueryDefinition.undadQueryDefinition,
+		parameters : [],
+		listeners : [ "parameters.gerencia" ],
+		parameter : "parameters.unidad",
+		valueAsId : false,
+		externalPlugin : "chosen",
+		htmlObject : "comboUnidad",
+		executeAtStart : false,
+		preExecution : function() {
+		},
+		postChange : function() {
+		}
+	}
+	usuarioSelector = {
+		name : "usuarioSelector",
+		type : "select",
+		queryDefinition : SelectQueryDefinition.usuarioQueryDefinition,
+		parameters : [],
+		listeners : [ "parameters.unidad", "parameters.gerencia" ],
+		parameter : "parameters.usuario",
+		valueAsId : false,
+		externalPlugin : "chosen",
+		htmlObject : "comboUsuario",
+		executeAtStart : false,
+		preExecution : function() {
+		},
+		postChange : function() {
+		}
+	}
+	flujoSelector = {
+		name : "flujoSelector",
+		type : "selectMulti",
+		queryDefinition : SelectQueryDefinition.flujoQueryDefinition,
+		parameters : [],
+		parameter : "parameters.flujo",
+		valueAsId : false,
+		externalPlugin : "chosen",
+		htmlObject : "comboFlujoDocumentario",
+		executeAtStart : true,
+		size : "10",
+		postChange : function() {
+			var par = Dashboards.getParameterValue(this.parameter);
+			if (par.length < 1) {
+				Dashboards.setParameter(this.parameter, [ "-1" ]);
+				window[this.name].update();
+			}
+			if (par.length > 1) {
+				par = $.grep(par, function(value) {
+					return value != "-1";
+				});
+				Dashboards.setParameter(this.parameter, par);
+				window[this.name].update();
+			}
+			Dashboards.saveStorage();
+		},
+		preExecution : function() {
+		},
+		postChange : function() {
+		}
+	}
+
+	tipoDocumentoSelector = {
+		name : "tipoDocumentoSelector",
+		type : "select",
+		queryDefinition : SelectQueryDefinition.tipoDocumentoQueryDefinition,
+		parameters : [],
+		parameter : "parameters.tipoDocumento",
+		valueAsId : false,
+		externalPlugin : "chosen",
+		htmlObject : "comboTipoDocumento",
+		executeAtStart : true,
+		preExecution : function() {
+		},
+		postChange : function() {
+		}
+	}
+
+	//*****************************************************************************************************
+	// fin seccion Select
+	// rango de fechas
+
+	componentStartDate = {
+		name : "componentStartDate",
+		type : "dateInputComponent",
+		parameters : [],
+		parameter : "parameters.startDate",
+		htmlObject : "dateStartDate",
+		dateFormat : "yy-mm-dd",
+		startDate : "1999-05-31",
+		endDate : "TODAY",
+		executeAtStart : true,
+		tooltip : "Seleccione fecha inicio",
+		postChange : function() {
+			console.log("eligio la fecha: " + parameters.startDate);
+			if (functions
+					.isFirstGreat(parameters.endDate, parameters.startDate)) {
+				//Dashboards.fireChange("parameters.runConsult",true);
+				console.log("Fecha Inicio: " + parameters.startDate);
+				console.log("Fecha Fin: " + parameters.endDate);
+				console.log("Fecha Gerencia: " + parameters.gerencia);
+			}
+		}
+	};
+
+	componentEndDate = {
+		name : "componentEndDate",
+		type : "dateInputComponent",
+		parameters : [],
+		parameter : "parameters.endDate",
+		htmlObject : "dateEndDate",
+		dateFormat : "yy-mm-dd",
+		startDate : "1999-05-31",
+		endDate : "TODAY",
+		executeAtStart : true,
+		tooltip : "Seleccione fecha fin",
+		postChange : function() {
+			console.log("You chose: " + parameters.endDate);
+			if (functions
+					.isFirstGreat(parameters.endDate, parameters.startDate)) {
+				//Dashboards.fireChange("parameters.changeDate",true);
+				console.log("Fecha Inicio: " + parameters.startDate);
+				console.log("Fecha Fin: " + parameters.endDate);
+				console.log("Fecha Gerencia: " + parameters.gerencia);
+			}
+		}
+	};
+	//*****************************************************************************************************
+	//Begin table definitions
+	//*****************************************************************************************************
+	// table firmados
+	var tableFirmados = {
+		name : "tableFirmados",
+		type : "tableComponent",
+		listeners : [ "parameters.runConsult" ],
+		chartDefinition : TableDefinitions.firmados,
+		htmlObject : "tableFirmados",
+		executeAtStart : false,
+		postFetch : TableDefinitions.postFetchFirmados,
+		postExecution : function() {
+		}
+	};
+	// table enumerados
+	var tableEnumerados = {
+		name : "tableEnumerados",
+		type : "tableComponent",
+		listeners : [ "parameters.runConsult" ],
+		chartDefinition : TableDefinitions.enumerados,
+		htmlObject : "tableEnumerados",
+		executeAtStart : false,
+		postFetch : TableDefinitions.postFetchEnumerados,
+		postExecution : function() {
+		}
+	};
+	// table enumerados y firmados
+	var tableEnumeradosFirmados = {
+		name : "tableEnumeradosFirmados",
+		type : "tableComponent",
+		listeners : [ "parameters.runConsult" ],
+		chartDefinition : TableDefinitions.enumeradosFirmados,
+		htmlObject : "tableEnumeradosFirmados",
+		executeAtStart : false,
+		postFetch : TableDefinitions.postFetchEnumeradosFirmados,
+		postExecution : function() {
+		}
+	};
+	//*****************************************************************************************************
+	//Begin chart definitions
+	//*****************************************************************************************************
+	//firmados
+	var barchartFirmados = {
+		type : "CccBarChartComponent",
+		name : "barchartFirmados",
+		listeners : [ "parameters.runConsult" ],
+		chartDefinition : ChartDefinitions.firmados,
+		parameters : [],
+		executeAtStart : false,
+		postFetch : function(values) {
+			var length = values.resultset.length;
+			if (length == 0) {
+				this.chartDefinition.height = 100;
+			} else if (length < 10) {
+				this.chartDefinition.height = 200;
+			} else {
+				var iterv = length / 10;
+				this.chartDefinition.height = 200 * iterv;
+			}
+			return values;
+		},
+		htmlObject : "barchartFirmados",
+		postExecution : function() {
+		}
+	};
+
+	//Enumerados
+	var barchartEnumerados = {
+		type : "CccBarChartComponent",
+		name : "barchartEnumerados",
+		listeners : [ "parameters.runConsult" ],
+		chartDefinition : ChartDefinitions.enumerados,
+		parameters : [],
+		executeAtStart : false,
+		postFetch : function(values) {
+			var length = values.resultset.length;
+			if (length == 0) {
+				this.chartDefinition.height = 100;
+			} else if (length < 10) {
+				this.chartDefinition.height = 200;
+			} else {
+				var iterv = length / 10;
+				this.chartDefinition.height = 200 * iterv;
+			}
+			return values;
+		},
+		htmlObject : "barchartEnumerados",
+		postExecution : function() {
+		}
+	};
+
+	//Enumerados y firmados
+	var barchartEnumeradosFirmados = {
+		type : "CccBarChartComponent",
+		name : "barchartEnumeradosFirmados",
+		listeners : [ "parameters.runConsult" ],
+		chartDefinition : ChartDefinitions.enumeradosFirmados,
+		parameters : [],
+		postFetch : function(values) {
+			var length = values.resultset.length;
+			if (length == 0) {
+				this.chartDefinition.height = 100;
+			} else if (length < 10) {
+				this.chartDefinition.height = 200;
+			} else {
+				var iterv = length / 10;
+				this.chartDefinition.height = 200 * iterv;
+			}
+			return values;
+		},
+		executeAtStart : false,
+		htmlObject : "barchartEnumeradosFirmados",
+		postExecution : function() {
+		}
+	};
+	//*****************************************************************************************************
+	var select = [ gerenciaSelector, unidadSelector, usuarioSelector,
+			flujoSelector, tipoDocumentoSelector, componentEndDate,
+			componentStartDate ];
+	var tables = [ tableFirmados, tableEnumerados, tableEnumeradosFirmados ];
+	var chart = [ barchartEnumeradosFirmados, barchartEnumerados,
+			barchartFirmados ];
+	var button = [ executeReport ];
+	var components = select.concat(tables, chart, button);
+</script>
+
+<script language="javascript" type="text/javascript">
+	function load() {
+		$("#").click(function() {
+			$("#parametros").toggle();
 		});
-        Dashboards.setParameter(this.parameter,par);
-        window[this.name].update();
-    }
-	Dashboards.saveStorage();
-  },
-  preExecution:function() {},
-  postChange:function() {}
-}
 
-tipoDocumentoSelector = 
-{
-  name: "tipoDocumentoSelector",
-  type: "select",
-  queryDefinition:SelectQueryDefinition.tipoDocumentoQueryDefinition,
-  parameters:[],
-  parameter:"parameters.tipoDocumento",
-  valueAsId: false,
-  externalPlugin:"chosen",
-  htmlObject: "comboTipoDocumento",
-  executeAtStart: true,
-  preExecution:function() {},
-  postChange:function() {}
-}
+		$("#reporteFrame").hide();
+		Dashboards.init(components);
+	}
 
-
-//*****************************************************************************************************
-// fin seccion Select
-// rango de fechas
-
-componentStartDate = 
-{
-	name: "componentStartDate",
-	type: "dateInputComponent",
-	parameters:[],
-	parameter: "parameters.startDate",
-	htmlObject: "dateStartDate",
-	dateFormat: "yy-mm-dd",
-	startDate: "1999-05-31",
-	endDate: "TODAY",
-	executeAtStart: true,
-    tooltip: "Seleccione fecha inicio",
-	postChange: function(){
-        console.log("eligio la fecha: " + parameters.startDate);
-        if(functions.isFirstGreat(parameters.endDate, parameters.startDate)){
-            //Dashboards.fireChange("parameters.runConsult",true);
-            console.log("Fecha Inicio: " + parameters.startDate);
-            console.log("Fecha Fin: " + parameters.endDate);
-            console.log("Fecha Gerencia: " + parameters.gerencia);
-        }
-    }
-};
-
-componentEndDate = 
-{
-	name: "componentEndDate",
-	type: "dateInputComponent",
-	parameters:[],
-	parameter: "parameters.endDate",
-	htmlObject: "dateEndDate",
-	dateFormat: "yy-mm-dd",
-	startDate: "1999-05-31",
-	endDate: "TODAY",
-	executeAtStart: true,
-	tooltip: "Seleccione fecha fin",
-	postChange: function(){console.log("You chose: " + parameters.endDate);
-        if(functions.isFirstGreat(parameters.endDate, parameters.startDate)){
-            //Dashboards.fireChange("parameters.changeDate",true);
-            console.log("Fecha Inicio: " + parameters.startDate);
-            console.log("Fecha Fin: " + parameters.endDate);
-            console.log("Fecha Gerencia: " + parameters.gerencia);
-        }        
-    }
-};
-//*****************************************************************************************************
-//Begin table definitions
-//*****************************************************************************************************
-// table firmados
-var tableFirmados = {
-    name: "tableFirmados",
-    type: "tableComponent",
-    listeners:["parameters.runConsult"],
-    chartDefinition: TableDefinitions.firmados,
-    htmlObject: "tableFirmados",
-    executeAtStart: false,
-    postFetch:TableDefinitions.postFetchFirmados,
-    postExecution:function(){}
-};
-// table enumerados
-var tableEnumerados = {
-    name: "tableEnumerados",
-    type: "tableComponent",
-    listeners:["parameters.runConsult"],
-    chartDefinition: TableDefinitions.enumerados,
-    htmlObject: "tableEnumerados",
-    executeAtStart: false,
-    postFetch: TableDefinitions.postFetchEnumerados,
-    postExecution:function(){}
-};
-// table enumerados y firmados
-var tableEnumeradosFirmados = {
-    name: "tableEnumeradosFirmados",
-    type: "tableComponent",
-    listeners:["parameters.runConsult"],
-    chartDefinition: TableDefinitions.enumeradosFirmados,
-    htmlObject: "tableEnumeradosFirmados",
-    executeAtStart: false,
-    postFetch: TableDefinitions.postFetchEnumeradosFirmados,
-    postExecution:function(){}
-};
-//*****************************************************************************************************
-//Begin chart definitions
-//*****************************************************************************************************
-//firmados
-var barchartFirmados = {
-	type: "CccBarChartComponent",
-	name: "barchartFirmados",
-    listeners:["parameters.runConsult"],
-	chartDefinition: ChartDefinitions.firmados,
-	parameters: [],
-	executeAtStart: false,
-    postFetch:function(values){
-        var length = values.resultset.length;
-        if(length == 0){
-            this.chartDefinition.height = 100;
-        }else if(length < 10) {
-            this.chartDefinition.height = 200;
-        }else {
-            var iterv = length/10;
-            this.chartDefinition.height = 200*iterv;
-        }
-        return values;
-    },
-	htmlObject: "barchartFirmados",
-    postExecution:function() {}
-};
-
-//Enumerados
-var barchartEnumerados = {
-	type: "CccBarChartComponent",
-	name: "barchartEnumerados",
-    listeners:["parameters.runConsult"],
-	chartDefinition: ChartDefinitions.enumerados,
-	parameters: [],
-	executeAtStart: false,
-    postFetch:function(values){
-        var length = values.resultset.length;
-        if(length == 0){
-            this.chartDefinition.height = 100;
-        }else if(length < 10) {
-            this.chartDefinition.height = 200;
-        }else {
-            var iterv = length/10;
-            this.chartDefinition.height = 200*iterv;
-        }
-        return values;
-    },
-	htmlObject: "barchartEnumerados",
-    postExecution:function() {}
-};
-
-//Enumerados y firmados
-var barchartEnumeradosFirmados = {
-	type: "CccBarChartComponent",
-	name: "barchartEnumeradosFirmados",
-    listeners:["parameters.runConsult"],
-	chartDefinition: ChartDefinitions.enumeradosFirmados,
-	parameters: [],
-    postFetch:function(values){
-        var length = values.resultset.length;
-        if(length == 0){
-            this.chartDefinition.height = 100;
-        }else if(length < 10) {
-            this.chartDefinition.height = 200;
-        }else {
-            var iterv = length/10;
-            this.chartDefinition.height = 200*iterv;
-        }
-        return values;
-    },
-	executeAtStart: false,
-	htmlObject: "barchartEnumeradosFirmados",
-    postExecution:function() {}
-};
-//*****************************************************************************************************
-var select = [ gerenciaSelector,unidadSelector, usuarioSelector, flujoSelector, tipoDocumentoSelector, componentEndDate, componentStartDate];
-var tables = [ tableFirmados, tableEnumerados, tableEnumeradosFirmados];
-var chart  = [ barchartEnumeradosFirmados, barchartEnumerados, barchartFirmados];
-var button  = [ executeReport];
-var components = select.concat(tables, chart, button);
-
-        
-        
-    </script>
-    
-    <script language="javascript" type="text/javascript">
-
-
-function load(){
-    $("#").click(function(){
-        $("#parametros").toggle();
-    });
-    
-    $("#reporteFrame").hide();
-	Dashboards.init(components);
-}
-
-load();
-
+	load();
 </script>

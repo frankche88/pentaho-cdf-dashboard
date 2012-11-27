@@ -1,412 +1,422 @@
-<script type="text/javascript" src="GetCDFResource?resource=/expedientes-dashboard/script/SelectQueryDefinitions.js"></script>
-<script type="text/javascript" src="GetCDFResource?resource=/expedientes-dashboard/script/registrados/RegistradosQuery.js"></script>
-<script type="text/javascript" src="GetCDFResource?resource=/expedientes-dashboard/script/registrados/RegistradosDefinitions.js"></script>
+<script type="text/javascript"
+	src="GetCDFResource?resource=/expedientes-dashboard/script/SelectQueryDefinitions.js"></script>
+<script type="text/javascript"
+	src="GetCDFResource?resource=/expedientes-dashboard/script/registrados/RegistradosQuery.js"></script>
+<script type="text/javascript"
+	src="GetCDFResource?resource=/expedientes-dashboard/script/registrados/RegistradosDefinitions.js"></script>
 <style>
 </style>
 
 <div class="container">
-    <link rel="stylesheet" type="text/css" href="GetCDFResource?resource=/expedientes-dashboard/css/styledashboard.css" />
-    <div id='firstBlock'  class='clearfix ' >
-        <div class="span-23 last">
-            <div id="togleParametros" class='mybox clearfix ' >
-            </div>
-        </div>
-        
-        <div class="span-23 last">
-            <div id='parametros'  class='mybox clearfix ' >
+	<link rel="stylesheet" type="text/css"
+		href="GetCDFResource?resource=/expedientes-dashboard/css/styledashboard.css" />
+	<div id='firstBlock' class='clearfix '>
+		<div class="span-23 last">
+			<div id="togleParametros" class='mybox clearfix '></div>
+		</div>
 
-                <div class='selector gerencia span-12 ' >
-                    <span> Gerencia: </span> 
-                    <div id='comboGerencia'  class='clearfix ' ></div>
-                </div>
-                
-                <br/>
-                <div class='selector division span-8 last' >
-                    <span> Unidad/Division: </span>
-                    <div id='comboUnidad'  class='clearfix ' ></div>
-                </div>
-                
-                <br/>
-                <div class='selector usuario span-8 last' >
-                    <span> Usuario: </span>
-                    <div id='comboUsuario'  class='clearfix ' ></div>
-                </div>
-                
-                <br/>
-                <div class='selector flujo span-8 last' >
-                    <span> Flujo documentario: </span>
-                    <div id='comboFlujoDocumentario'  class='clearfix ' ></div>
-                </div>
-                
-                <div class='selector documento span-8 last' >
-                    <span> Tipo de documento: </span>
-                    <div id='comboTipoDocumento'  class='clearfix ' ></div>
-                </div>
-                
-                <div class='selector  span-6 ' >
-                    <span> Fecha inicio: </span>
-                    <div id='dateStartDate'  class='clearfix ' ></div>
-                </div>
+		<div class="span-23 last">
+			<div id='parametros' class='mybox clearfix '>
 
-                <div class='selector span-6 last' >
-                    <span> Fecha fin: </span>
-                    <div id='dateEndDate'  class='clearfix ' >
-                </div>
-                
-                </div>
+				<div class='selector gerencia span-12 '>
+					<span> Gerencia: </span>
+					<div id='comboGerencia' class='clearfix '></div>
+				</div>
 
-                <div class='selector span-6 ' >
-                    <span></span> 
-                    <div id='btnEjecutarConsulta'  class='clearfix ' ></div>
-                </div>
+				<br />
+				<div class='selector division span-8 last'>
+					<span> Unidad/Division: </span>
+					<div id='comboUnidad' class='clearfix '></div>
+				</div>
 
-            </div>
+				<br />
+				<div class='selector usuario span-8 last'>
+					<span> Usuario: </span>
+					<div id='comboUsuario' class='clearfix '></div>
+				</div>
 
-        </div>
-    </div>
-<! -- seccion de graficos-->    
-    <div id="reporteFrame">
-    <hr class ="space">
-    <div class="span-24 last">
+				<br />
+				<div class='selector flujo span-8 last'>
+					<span> Flujo documentario: </span>
+					<div id='comboFlujoDocumentario' class='clearfix '></div>
+				</div>
 
-        <div class="span-12 mybox ">
-            <div id="barchartRegistrados" class='clearfix '></div>
-        </div>
-        <div class="span-11 last mybox ">
-            <div id="tableRegistrados" class='clearfix '></div>
-        </div>
-    </div>
-    
-    <hr class="space">
+				<div class='selector documento span-8 last'>
+					<span> Tipo de documento: </span>
+					<div id='comboTipoDocumento' class='clearfix '></div>
+				</div>
 
-    <div class="span-24 last">
-        <div class="span-12 mybox " >
-            <div id="piechartEnMesaDePartes" class='clearfix '></div>
-        </div>
-        <div class="span-11 last mybox ">
-            <div id="piechartEnUsuarioFinal" class=' clearfix '></div>
-        </div>
-    </div>
+				<div class='selector  span-6 '>
+					<span> Fecha inicio: </span>
+					<div id='dateStartDate' class='clearfix '></div>
+				</div>
 
-    <hr class="space">
+				<div class='selector span-6 last'>
+					<span> Fecha fin: </span>
+					<div id='dateEndDate' class='clearfix '></div>
 
-    <div class="span-24 last">
-        <div class="span-12 mybox " >
-            <div id="tableEnMesaDePartes" class='clearfix '></div>
-        </div>
-        <div class="span-11 last mybox ">
-            <div id="tableEnUsuarioFinal" class=' clearfix '></div>
-        </div>
+				</div>
 
-    </div>
+				<div class='selector span-6 '>
+					<span></span>
+					<div id='btnEjecutarConsulta' class='clearfix '></div>
+				</div>
 
-    <hr>
-    
-    </div>
+			</div>
+
+		</div>
+	</div>
+	<!-- seccion de graficos-->
+	<div id="reporteFrame">
+		<hr class="space">
+		<div class="span-24 last">
+
+			<div class="span-12 mybox ">
+				<div id="barchartRegistrados" class='clearfix '></div>
+			</div>
+			<div class="span-11 last mybox ">
+				<div id="tableRegistrados" class='clearfix '></div>
+			</div>
+		</div>
+
+		<hr class="space">
+
+		<div class="span-24 last">
+			<div class="span-12 mybox ">
+				<div id="piechartEnMesaDePartes" class='clearfix '></div>
+			</div>
+			<div class="span-11 last mybox ">
+				<div id="piechartEnUsuarioFinal" class=' clearfix '></div>
+			</div>
+		</div>
+
+		<hr class="space">
+
+		<div class="span-24 last">
+			<div class="span-12 mybox ">
+				<div id="tableEnMesaDePartes" class='clearfix '></div>
+			</div>
+			<div class="span-11 last mybox ">
+				<div id="tableEnUsuarioFinal" class=' clearfix '></div>
+			</div>
+
+		</div>
+
+		<hr>
+
+	</div>
 </div>
 
-    
-    <script>
-//*****************************************************************************************************
-var executeReport = 
-{
-    name: "executeReport",
-    type: "Button",
-    buttonStyle:"classic",
-    listeners:[],
-    htmlObject: "btnEjecutarConsulta",
-    label: "Ver Reporte",
-    expression: function(){
-        if(functions.isFirstGreat(parameters.endDate, parameters.startDate)){
-            $("#reporteFrame").show();
-            Dashboards.fireChange("parameters.runConsult",true);
-        }else {
-            alert("verificar el rango de fechas");
-        }
-    },
-    executeAtStart: true,
-    preChange: function(){return true;},
-    postChange: function(){return true;},
-    tooltip: "Ejecutar consulta"
-}
-//*****************************************************************************************************
-    // Seccion de select
-// select para la gerencia
-gerenciaSelector = 
-{
-  name: "gerenciaSelector",
-  type: "select",
-  queryDefinition:SelectQueryDefinition.gerenciaQueryDefinition,
-  parameters:[],
-  parameter:"parameters.gerencia",
-  valueAsId: false,
-  externalPlugin:"chosen",
-  htmlObject: "comboGerencia",
-  executeAtStart: true,
-  preExecution:function() {},
-  postChange:function() {}
-}
-unidadSelector=
-{
-  name: "unidadSelector",
-  type: "select",
-  queryDefinition:SelectQueryDefinition.undadQueryDefinition,
-  parameters:[],
-  listeners:["parameters.gerencia"],
-  parameter:"parameters.unidad",
-  valueAsId: false,
-  htmlObject: "comboUnidad",
-  executeAtStart: false,
-  externalPlugin:"chosen",
-  preExecution:function() {},
-  postChange:function() {}
-}
-usuarioSelector=
-{
-  name: "usuarioSelector",
-  type: "select",
-  queryDefinition:SelectQueryDefinition.usuarioQueryDefinition,
-  parameters:[],
-  listeners:["parameters.unidad", "parameters.gerencia"],
-  parameter:"parameters.usuario",
-  valueAsId: false,
-  externalPlugin:"chosen",
-  htmlObject: "comboUsuario",
-  executeAtStart: false,
-  preExecution:function() {},
-  postChange:function() {}
-}
-flujoSelector=
-{
-  name: "flujoSelector",
-  type: "selectMulti",
-  queryDefinition:SelectQueryDefinition.flujoQueryDefinition,
-  parameters:[],
-  parameter:"parameters.flujo",
-  valueAsId: false,
-  externalPlugin:"chosen",
-  htmlObject: "comboFlujoDocumentario",
-  executeAtStart: true,
-  size: "10",
-  postChange:function(){
-	var par = Dashboards.getParameterValue(this.parameter);    
-    if(par.length<1){
-        Dashboards.setParameter(this.parameter,["-1"]);
-        window[this.name].update();
-    }
-	if(par.length>1){
-		par = $.grep(par, function(value) {
-		  return value != "-1";
+
+<script>
+	//*****************************************************************************************************
+	var executeReport = {
+		name : "executeReport",
+		type : "Button",
+		buttonStyle : "classic",
+		listeners : [],
+		htmlObject : "btnEjecutarConsulta",
+		label : "Ver Reporte",
+		expression : function() {
+			if (functions
+					.isFirstGreat(parameters.endDate, parameters.startDate)) {
+				$("#reporteFrame").show();
+				Dashboards.fireChange("parameters.runConsult", true);
+			} else {
+				alert("verificar el rango de fechas");
+			}
+		},
+		executeAtStart : true,
+		preChange : function() {
+			return true;
+		},
+		postChange : function() {
+			return true;
+		},
+		tooltip : "Ejecutar consulta"
+	}
+	//*****************************************************************************************************
+	// Seccion de select
+	// select para la gerencia
+	gerenciaSelector = {
+		name : "gerenciaSelector",
+		type : "select",
+		queryDefinition : SelectQueryDefinition.gerenciaQueryDefinition,
+		parameters : [],
+		parameter : "parameters.gerencia",
+		valueAsId : false,
+		externalPlugin : "chosen",
+		htmlObject : "comboGerencia",
+		executeAtStart : true,
+		preExecution : function() {
+		},
+		postChange : function() {
+		}
+	}
+	unidadSelector = {
+		name : "unidadSelector",
+		type : "select",
+		queryDefinition : SelectQueryDefinition.undadQueryDefinition,
+		parameters : [],
+		listeners : [ "parameters.gerencia" ],
+		parameter : "parameters.unidad",
+		valueAsId : false,
+		htmlObject : "comboUnidad",
+		executeAtStart : false,
+		externalPlugin : "chosen",
+		preExecution : function() {
+		},
+		postChange : function() {
+		}
+	}
+	usuarioSelector = {
+		name : "usuarioSelector",
+		type : "select",
+		queryDefinition : SelectQueryDefinition.usuarioQueryDefinition,
+		parameters : [],
+		listeners : [ "parameters.unidad", "parameters.gerencia" ],
+		parameter : "parameters.usuario",
+		valueAsId : false,
+		externalPlugin : "chosen",
+		htmlObject : "comboUsuario",
+		executeAtStart : false,
+		preExecution : function() {
+		},
+		postChange : function() {
+		}
+	}
+	flujoSelector = {
+		name : "flujoSelector",
+		type : "selectMulti",
+		queryDefinition : SelectQueryDefinition.flujoQueryDefinition,
+		parameters : [],
+		parameter : "parameters.flujo",
+		valueAsId : false,
+		externalPlugin : "chosen",
+		htmlObject : "comboFlujoDocumentario",
+		executeAtStart : true,
+		size : "10",
+		postChange : function() {
+			var par = Dashboards.getParameterValue(this.parameter);
+			if (par.length < 1) {
+				Dashboards.setParameter(this.parameter, [ "-1" ]);
+				window[this.name].update();
+			}
+			if (par.length > 1) {
+				par = $.grep(par, function(value) {
+					return value != "-1";
+				});
+				Dashboards.setParameter(this.parameter, par);
+				window[this.name].update();
+			}
+			Dashboards.saveStorage();
+		},
+		preExecution : function() {
+		},
+		postChange : function() {
+		}
+	}
+
+	tipoDocumentoSelector = {
+		name : "tipoDocumentoSelector",
+		type : "select",
+		queryDefinition : SelectQueryDefinition.tipoDocumentoQueryDefinition,
+		parameters : [],
+		parameter : "parameters.tipoDocumento",
+		valueAsId : false,
+		externalPlugin : "chosen",
+		htmlObject : "comboTipoDocumento",
+		executeAtStart : true,
+		preExecution : function() {
+		},
+		postChange : function() {
+		}
+	}
+
+	clienteSelector = {
+		name : "clienteSelector",
+		type : "select",
+		queryDefinition : SelectQueryDefinition.clienteQueryDefinition,
+		parameters : [],
+		parameter : "parameters.cliente",
+		valueAsId : false,
+		externalPlugin : "chosen",
+		htmlObject : "comboCliente",
+		executeAtStart : false,
+		preExecution : function() {
+		},
+		postChange : function() {
+		}
+	}
+
+	//*****************************************************************************************************
+	// fin seccion Select
+	// rango de fechas
+
+	componentStartDate = {
+		name : "componentStartDate",
+		type : "dateInputComponent",
+		parameters : [],
+		parameter : "parameters.startDate",
+		htmlObject : "dateStartDate",
+		dateFormat : "yy-mm-dd",
+		startDate : "1999-05-31",
+		endDate : "TODAY",
+		executeAtStart : true,
+		tooltip : "Seleccione fecha inicio",
+		postChange : function() {
+		}
+	};
+
+	componentEndDate = {
+		name : "componentEndDate",
+		type : "dateInputComponent",
+		parameters : [],
+		parameter : "parameters.endDate",
+		htmlObject : "dateEndDate",
+		dateFormat : "yy-mm-dd",
+		startDate : "1999-05-31",
+		endDate : "TODAY",
+		executeAtStart : true,
+		tooltip : "Seleccione fecha fin",
+		postChange : function() {
+		}
+	};
+	//*****************************************************************************************************
+	//Begin table definitions
+	//*****************************************************************************************************
+	// table definitions
+	var tableRegistrados = {
+		name : "tableRegistrados",
+		type : "tableComponent",
+		listeners : [ "parameters.runConsult" ],
+		chartDefinition : TableDefinitions.registrados,
+		htmlObject : "tableRegistrados",
+		executeAtStart : false,
+		postFetch : TableDefinitions.postFetchFirmados,
+		postExecution : function() {
+		}
+	};
+
+	var tableEnUsuarioFinal = {
+		name : "tableEnUsuarioFinal",
+		type : "tableComponent",
+		listeners : [ "parameters.runConsult" ],
+		chartDefinition : TableDefinitions.enUsuarioFinal,
+		htmlObject : "tableEnUsuarioFinal",
+		executeAtStart : false,
+		//postFetch : TableDefinitions.postFetchEnumerados,
+		postExecution : function() {
+		}
+	};
+
+	var tableEnMesaDePartes = {
+		name : "tableEnMesaDePartes",
+		type : "tableComponent",
+		listeners : [ "parameters.runConsult" ],
+		chartDefinition : TableDefinitions.enMesaDePartes,
+		htmlObject : "tableEnMesaDePartes",
+		executeAtStart : false,
+		//postFetch : TableDefinitions.postFetchEnumeradosFirmados,
+		postExecution : function() {
+		}
+	};
+
+	//*****************************************************************************************************
+	//Begin chart definitions
+	//*****************************************************************************************************
+	// bar chart definitions
+	//protovis test
+	var barchartRegistrados = {
+		type : "CccBarChartComponent",
+		name : "barchartRegistrados",
+		listeners : [ "parameters.runConsult" ],
+		chartDefinition : BarChartDefinitions.registrados,
+		postFetch : function(values) {
+			var length = values.resultset.length;
+			if (length == 0) {
+				this.chartDefinition.height = 100;
+			} else if (length < 10) {
+				this.chartDefinition.height = 300;
+			} else {
+				var iterv = length / 10;
+				this.chartDefinition.height = 200 * iterv;
+			}
+			return values;
+		},
+		parameters : [],
+		executeAtStart : false,
+		htmlObject : "barchartRegistrados",
+		postExecution : function(value) {
+		}
+	};
+
+	// pie chart definitions
+	//*****************************************************************************************************
+	var piechartEnUsuarioFinal = {
+		type : "CccPieChartComponent",
+		name : "piechartEnUsuarioFinal",
+		listeners : [ "parameters.runConsult" ],
+		chartDefinition : PieChartDefinitions.enUsuarioFinal,
+		parameters : [],
+		postFetch : function(values) {
+			var length = values.resultset.length;
+			if (length == 0) {
+				this.chartDefinition.height = 100;
+			} else if (length < 10) {
+				this.chartDefinition.height = 300;
+			} else {
+				var iterv = length / 10;
+				this.chartDefinition.height = 120 * iterv;
+			}
+			return PieChartDefinitions.postFetch(values);
+		},
+		executeAtStart : false,
+		htmlObject : "piechartEnUsuarioFinal"
+	};
+
+	var piechartEnMesaDePartes = {
+		type : "CccPieChartComponent",
+		name : "piechartEnMesaDePartes",
+		listeners : [ "parameters.runConsult" ],
+		chartDefinition : PieChartDefinitions.enMesaDePartes,
+		parameters : [],
+		postFetch : function(values) {
+			var length = values.resultset.length;
+			if (length == 0) {
+				this.chartDefinition.height = 100;
+			} else if (length < 10) {
+				this.chartDefinition.height = 300;
+			} else {
+				var iterv = length / 10;
+				this.chartDefinition.height = 120 * iterv;
+			}
+			return PieChartDefinitions.postFetch(values);
+		},
+		executeAtStart : false,
+		htmlObject : "piechartEnMesaDePartes"
+	};
+	//*****************************************************************************************************
+	//*****************************************************************************************************
+	var select = [ gerenciaSelector, unidadSelector, usuarioSelector,
+			flujoSelector, tipoDocumentoSelector, componentEndDate,
+			componentStartDate ];
+	var tables = [ tableRegistrados, tableEnMesaDePartes, tableEnUsuarioFinal ];
+	var chart = [ barchartRegistrados, piechartEnMesaDePartes,
+			piechartEnUsuarioFinal ];
+	var button = [ executeReport ];
+	var components = select.concat(tables, chart, button);
+</script>
+
+<script language="javascript" type="text/javascript">
+	function load() {
+		$("#togleParametros").click(function() {
+			$("#parametros").toggle();
 		});
-        Dashboards.setParameter(this.parameter,par);
-        window[this.name].update();
-    }
-	Dashboards.saveStorage();
-  },
-  preExecution:function() {},
-  postChange:function() {}
-}
 
-tipoDocumentoSelector = 
-{
-  name: "tipoDocumentoSelector",
-  type: "select",
-  queryDefinition:SelectQueryDefinition.tipoDocumentoQueryDefinition,
-  parameters:[],
-  parameter:"parameters.tipoDocumento",
-  valueAsId: false,
-  externalPlugin:"chosen",
-  htmlObject: "comboTipoDocumento",
-  executeAtStart: true,
-  preExecution:function() {},
-  postChange:function() {}
-}
+		$("#reporteFrame").hide();
+		Dashboards.init(components);
+	}
 
-clienteSelector = 
-{
-  name: "clienteSelector",
-  type: "select",
-  queryDefinition:SelectQueryDefinition.clienteQueryDefinition,
-  parameters:[],
-  parameter:"parameters.cliente",
-  valueAsId: false,
-  externalPlugin:"chosen",
-  htmlObject: "comboCliente",
-  executeAtStart: false,
-  preExecution:function() {},
-  postChange:function() {}
-}
-
-
-//*****************************************************************************************************
-// fin seccion Select
-// rango de fechas
-
-componentStartDate = 
-{
-	name: "componentStartDate",
-	type: "dateInputComponent",
-	parameters:[],
-	parameter: "parameters.startDate",
-	htmlObject: "dateStartDate",
-	dateFormat: "yy-mm-dd",
-	startDate: "1999-05-31",
-	endDate: "TODAY",
-	executeAtStart: true,
-    tooltip: "Seleccione fecha inicio",
-	postChange: function(){
-    }
-};
-
-componentEndDate = 
-{
-	name: "componentEndDate",
-	type: "dateInputComponent",
-	parameters:[],
-	parameter: "parameters.endDate",
-	htmlObject: "dateEndDate",
-	dateFormat: "yy-mm-dd",
-	startDate: "1999-05-31",
-	endDate: "TODAY",
-	executeAtStart: true,
-	tooltip: "Seleccione fecha fin",
-	postChange: function() {       
-    }
-};
-//*****************************************************************************************************
-//Begin table definitions
-//*****************************************************************************************************
-// table definitions
-var tableRegistrados = {
-    name: "tableRegistrados",
-    type: "tableComponent",
-    listeners:["parameters.runConsult"],
-    chartDefinition: TableDefinitions.registrados,
-    htmlObject: "tableRegistrados",
-    executeAtStart: false,
-    postFetch:TableDefinitions.postFetchFirmados,
-    postExecution:function(){}
-};
-
-var tableEnUsuarioFinal = {
-    name: "tableEnUsuarioFinal",
-    type: "tableComponent",
-    listeners:["parameters.runConsult"],
-    chartDefinition: TableDefinitions.enUsuarioFinal,
-    htmlObject: "tableEnUsuarioFinal",
-    executeAtStart: false,
-    postFetch:TableDefinitions.postFetchEnumerados,
-	postExecution:function(){}
-};
-
-var tableEnMesaDePartes = {
-    name: "tableEnMesaDePartes",
-    type: "tableComponent",
-    listeners:["parameters.runConsult"],
-    chartDefinition: TableDefinitions.enMesaDePartes,
-    htmlObject: "tableEnMesaDePartes",
-    executeAtStart: false, 
-    postFetch:TableDefinitions.postFetchEnumeradosFirmados,
-	postExecution:function(){}
-};
-
-//*****************************************************************************************************
-//Begin chart definitions
-//*****************************************************************************************************
-// bar chart definitions
-//protovis test
-var barchartRegistrados = {
-	type: "CccBarChartComponent",
-	name: "barchartRegistrados",
-    listeners:["parameters.runConsult"],
-    chartDefinition: BarChartDefinitions.registrados,
-    postFetch:function(values){
-        var length = values.resultset.length;
-        if(length == 0){
-            this.chartDefinition.height = 100;
-        }else if(length < 10) {
-            this.chartDefinition.height = 300;
-        }else {
-            var iterv = length/10;
-            this.chartDefinition.height = 200*iterv;
-        }
-        return values;
-    },
-	parameters: [],
-	executeAtStart: false,
-	htmlObject: "barchartRegistrados",
-    postExecution:function(value) {}
-};
-
-// pie chart definitions
-//*****************************************************************************************************
-var piechartEnUsuarioFinal = {
-	type: "CccPieChartComponent",
-	name: "piechartEnUsuarioFinal",
-    listeners:["parameters.runConsult"],
-	chartDefinition: PieChartDefinitions.enUsuarioFinal,
-	parameters: [],
-    postFetch:function(values) {
-        var length = values.resultset.length;
-        if(length == 0){
-            this.chartDefinition.height = 100;
-        }else if(length < 10) {
-            this.chartDefinition.height = 300;
-        }else {
-            var iterv = length/10;
-            this.chartDefinition.height = 120*iterv;
-        }
-        return PieChartDefinitions.postFetch(values);
-    },
-	executeAtStart: false,
-	htmlObject: "piechartEnUsuarioFinal"
-};
-
-var piechartEnMesaDePartes = {
-	type: "CccPieChartComponent",
-	name: "piechartEnMesaDePartes",
-    listeners:["parameters.runConsult"],
-	chartDefinition: PieChartDefinitions.enMesaDePartes,
-	parameters: [],
-    postFetch:function(values) {
-        var length = values.resultset.length;
-        if(length == 0){
-            this.chartDefinition.height = 100;
-        }else if(length < 10) {
-            this.chartDefinition.height = 300;
-        }else {
-            var iterv = length/10;
-            this.chartDefinition.height = 120*iterv;
-        }
-        return PieChartDefinitions.postFetch(values);
-    },
-	executeAtStart: false,
-	htmlObject: "piechartEnMesaDePartes"
-};
-//*****************************************************************************************************
-//*****************************************************************************************************
-var select = [ gerenciaSelector,unidadSelector, usuarioSelector, flujoSelector, tipoDocumentoSelector, componentEndDate, componentStartDate];
-var tables = [ tableRegistrados, tableEnMesaDePartes, tableEnUsuarioFinal];
-var chart  = [ barchartRegistrados, piechartEnMesaDePartes, piechartEnUsuarioFinal];
-var button  = [ executeReport];
-var components = select.concat(tables, chart, button);
-
-        
-        
-    </script>
-    
-    <script language="javascript" type="text/javascript">
-
-
-function load(){
-     $("#togleParametros").click(function(){
-        $("#parametros").toggle();
-    });
-    
-    $("#reporteFrame").hide();
-	Dashboards.init(components);
-}
-
-load();
-
+	load();
 </script>

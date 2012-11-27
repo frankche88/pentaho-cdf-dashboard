@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>ProjectTest_lineabase1</name>
+	<comment></comment>
+	<projects>
+		<project>testGithub</project>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>js/Pentaho_cdf_js</name>
+			<type>2</type>
+			<locationURI>Pentaho_cdf_js</locationURI>
+		</link>
+	</linkedResources>
+	<variableList>
+		<variable>
+			<name>Pentaho_cdf_js</name>
+			<value>file:/D:/tools/pentaho/biserver-ce/pentaho-solutions/system/pentaho-cdf/js</value>
+		</variable>
+	</variableList>
+</projectDescription>
