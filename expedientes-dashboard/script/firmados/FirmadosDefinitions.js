@@ -20,16 +20,16 @@ Tables.oLanguage = {
 
 TableDefinitions = {
 	postFetchFirmados : function(values) {
-		return TableDefinitions.postFetchTable(values, "FIRMADOS");
+		return TableDefinitions.postFetchTable(values, "NO FIRMADOS");
 	},
 	postFetchEnumerados : function(values) {
-		return TableDefinitions.postFetchTable(values, "ENUMERADOS");
+		return TableDefinitions.postFetchTable(values, "NO ENUMERADOS");
 	},
 	postFetchEnumeradosFirmados : function(values) {
-		return TableDefinitions.postFetchTable(values, "ENUMERADOS Y FIRMADOS");
+		return TableDefinitions.postFetchTable(values, "NO ENUMERADOS Y FIRMADOS");
 	},
 	enumerados : {
-		colHeaders : [ "Unidad", "No Enumerados", "Enumerados", "total" ],
+		colHeaders : [ "Unidad", "Enumerados", "No Enumerados", "total" ],
 		colTypes : [ 'string', 'numeric', 'numeric', 'numeric' ],
 		colFormats : [ null, '%.0f', '%.0f', '%.0f' ],
 		colWidths : [ '40%', '20%', '20%', '20%' ],
@@ -112,7 +112,7 @@ TableDefinitions = {
 		}
 	},
 	enumeradosFirmados : {
-		colHeaders : [ "Unidad", "No Enumerados", "Enumerados", "total" ],
+		colHeaders : [ "Unidad", "Enumerados y firmados", "No enumerados y firmados", "total" ],
 		colTypes : [ 'string', 'numeric', 'numeric', 'numeric' ],
 		colFormats : [ null, '%.0f', '%.0f', '%.0f' ],
 		colWidths : [ '40%', '20%', '20%', '20%' ],
@@ -363,7 +363,6 @@ ChartDefinitions = {
 		queryType : 'sql',
 		query : function() {
 			var query = QueryBarchart.enumeradosFirmados(parameters);
-			// console.log(query);
 			return query;
 		}
 	}

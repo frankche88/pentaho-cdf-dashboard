@@ -148,6 +148,7 @@ postFetchDefinitions = {
 	},
 	tableAtendidosVsNoAtendidos : function(values) {
 		console.log("postfech:" + values);
+		var title = "NO ATENDIDOS";
 		var metadata = [ {
 			colIndex : 0,
 			colName : "Unida",
@@ -181,7 +182,7 @@ postFetchDefinitions = {
 				if (current[0] == preValue[0] && current[1] == preValue[1]) {
 					// quitamos el primero
 					division = current[1];
-					if (current[0] == "ATENDIDOS") {
+					if (current[0] == title) {
 						atendidos = parseInt(current[2]);
 					} else {
 						noAtendidos = parseInt(current[2]);
@@ -190,7 +191,7 @@ postFetchDefinitions = {
 				} else {
 					if (current[1] == preValue[1]) {
 						division = current[1];
-						if (current[0] == "ATENDIDOS") {
+						if (current[0] == title) {
 							atendidos = parseInt(current[2]);
 						} else {
 							noAtendidos = parseInt(current[2]);
@@ -204,7 +205,7 @@ postFetchDefinitions = {
 						atendidos = 0;
 						total = 0;
 
-						if (current[0] == "ATENDIDOS") {
+						if (current[0] == title) {
 							atendidos = parseInt(current[2]);
 						} else {
 							noAtendidos = parseInt(current[2]);
@@ -220,7 +221,7 @@ postFetchDefinitions = {
 				atendidos = 0;
 				noAtendidos = 0;
 			}
-			if (current[0] == "ATENDIDOS") {
+			if (current[0] == title) {
 				atendidos = parseInt(current[2]);
 			} else {
 				noAtendidos = parseInt(current[2]);
@@ -239,8 +240,8 @@ postFetchDefinitions = {
 
 TableDefinition = {
 	atendidosVsNoAtendidos : {
-		colHeaders : [ "Unidad", "Expedientes no atendidos",
-				"Expedientes atendidos", "total" ],
+		colHeaders : [ "Unidad", "Expedientes atendidos",
+				"Expedientes no atendidos", "total" ],
 		colTypes : [ 'string', 'numeric', 'numeric', 'numeric' ],
 		colFormats : [ null, '%.0f', '%.0f', '%.0f' ],
 		colWidths : [ '40%', '20%', '20%', '20%' ],
@@ -281,10 +282,10 @@ TableDefinition = {
 		}
 	},
 	porRemitenteAtendidos : {
-		colHeaders : [ "Remitente", "Expedientes atendidos" ],
-		colTypes : [ 'string', 'numeric' ],
-		colFormats : [ null, '%.0f' ],
-		colWidths : [ '60%', '40%' ],
+		colHeaders : [ "Remitente", "Expedientes atendidos", "Porcentaje" ],
+		colTypes : [ 'string', 'numeric' , 'numeric' ],
+		colFormats : [ null, '%.0f' , '%.0f%' ],
+		colWidths : [ '60%', '20%', '20%'],
 		queryType : 'sql',
 		displayLength : 10,
 		paginationType : "two_button",
@@ -314,10 +315,10 @@ TableDefinition = {
 		}
 	},
 	porRemitenteNoAtendidos : {
-		colHeaders : [ "Remitente", "Expedientes no atendidos" ],
+		colHeaders : [ "Remitente", "Expedientes no atendidos", "Porcentaje" ],
 		colTypes : [ 'string', 'numeric' ],
-		colFormats : [ null, '%.0f' ],
-		colWidths : [ '60%', '40%' ],
+		colFormats : [ null, '%.0f', '%.0f%' ],
+		colWidths : [ '60%', '20%', '20%' ],
 		queryType : 'sql',
 		displayLength : 10,
 		paginationType : "two_button",

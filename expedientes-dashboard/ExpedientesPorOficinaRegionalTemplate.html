@@ -43,7 +43,7 @@
 			</div>
 			<hr />
 			<div class="span-12">
-				<div id="tableExpedientesRegistrados"></div>
+				<div id="tableDocumentosRegistrados"></div>
 			</div>
 
 			<div class="span-12">
@@ -91,14 +91,14 @@
 	//Begin table definitions
 	//*****************************************************************************************************
 	// table definitions
-	var tableExpedientesRegistrados = {
-		name : "tableExpedientesRegistrados",
+	var tableDocumentosRegistrados = {
+		name : "tableDocumentosRegistrados",
 		type : "tableComponent",
 		listeners : [ "parameters.unidad" ],
-		chartDefinition : TableDefinitions.expedientesRegistrados,
-		htmlObject : "tableExpedientesRegistrados",
+		chartDefinition : TableDefinitions.documentosRegistrados,
+		htmlObject : "tableDocumentosRegistrados",
 		executeAtStart : false,
-		postFetch : TableDefinitions.postExpedientesRegistrados,
+		postFetch : TableDefinitions.postDocumentosRegistrados,
 		postExecution : function() {
 		}
 	};
@@ -145,7 +145,7 @@
 	//*****************************************************************************************************
 	//*****************************************************************************************************
 	var select = [ componentEndDate, componentStartDate ];
-	var tables = [ tableExpedientesRegistrados, tableExpedientesAtendidos ];
+	var tables = [ tableDocumentosRegistrados, tableExpedientesAtendidos ];
 	var piecharts = [ piechartDocumentosRegistrados,
 			piechartExpedientesAtendidos ];
 

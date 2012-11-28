@@ -69,7 +69,7 @@ TableDefinitions = {
 									+ iTotalExpedientes + '</td></tr>');
 		}
 	},
-	expedientesRegistrados : {
+	documentosRegistrados : {
 		colHeaders : [ "Unidad", "Mesa de Partes", "Usuario Final", "total" ],
 		colTypes : [ 'string', 'numeric', 'numeric', 'numeric' ],
 		colFormats : [ null, '%.0f', '%.0f', '%.0f' ],
@@ -101,7 +101,7 @@ TableDefinitions = {
 				iTotalAtendidos += rowData[2] * 1;
 				iTotalNoAtendidos += rowData[1] * 1;
 			}
-			$('#tableExpedientesRegistradosTable > tbody:first')
+			$('#tableDocumentosRegistradosTable > tbody:first')
 					.append(
 							'<tr><td class="column0 string" style="text-width:bold">Total</td><td class="column1 numeric">'
 									+ iTotalNoAtendidos
@@ -114,7 +114,7 @@ TableDefinitions = {
 	postExpedientesAtendidos : function(values) {
 		return TableDefinitions.postFetchTable(values, "ATENDIDO");
 	},
-	postExpedientesRegistrados : function(values) {
+	postDocumentosRegistrados : function(values) {
 		return TableDefinitions.postFetchTable(values, "MESA DE PARTES");
 	},
 	postFetchTable : function(values, title) {

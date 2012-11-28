@@ -192,7 +192,7 @@
 				Dashboards.setParameter(this.parameter, [ "-1" ]);
 				window[this.name].update();
 			}
-			if (par.length > 1) {
+			if (par.length > 1 && !(-1 == $.inArray("-1", par))) {
 				par = $.grep(par, function(value) {
 					return value != "-1";
 				});
@@ -202,8 +202,6 @@
 			Dashboards.saveStorage();
 		},
 		preExecution : function() {
-		},
-		postChange : function() {
 		}
 	}
 

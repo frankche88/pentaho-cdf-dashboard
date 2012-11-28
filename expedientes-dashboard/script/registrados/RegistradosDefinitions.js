@@ -274,7 +274,7 @@ BarChartDefinitions = {
 		selectable : false,
 		crosstabMode : false,
 		seriesInRows : false,
-		colors : [ "#FA1111", "#30C716" ],
+		colors : [ "#bbeeff", "#bbffff" ],
 		extensionPoints : [ [ "barLabel_text", function(d) {
 			return ' ' + d + '%'
 		} ], [ "titleLabel_font", "18px sans-serif" ],
@@ -283,7 +283,6 @@ BarChartDefinitions = {
 		queryType : 'sql',
 		query : function() {
 			var query = QueryBarchart.registrados(parameters);
-			// console.log(query);
 			return query;
 		}
 	}
