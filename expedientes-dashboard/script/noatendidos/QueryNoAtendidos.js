@@ -1,14 +1,14 @@
-	// ROUND (ratio_to_report (SUM(CANTIDAD)) OVER (PARTITION BY NOMBRE) * 100,
-	// 0) AS PORCENTAJE
+// ROUND (ratio_to_report (SUM(CANTIDAD)) OVER (PARTITION BY NOMBRE) * 100,
+// 0) AS PORCENTAJE
 
 QueryTable = {
 	// ROUND (ratio_to_report (SUM(CANTIDAD)) OVER (PARTITION BY NOMBRE) * 100,
 	// 0) AS PORCENTAJE
 	atendidosVsNoAtendidos : function(filtersObject) {
 		var filters = QueryFilters.createFilters(filtersObject);
-		var query = " SELECT    ESTADO, NOMBRE, ROUND((CANTIDAD/DECODE(TOTAL,0,1,TOTAL))*100,0) AS PORCENTAJE  "
+		var query = " SELECT    ESTADO, NOMBRE, PORCENTAJE  "
 				+ "        FROM (  "
-				+ "         SELECT  ESTADO, NOMBRE ,SUM(CANTIDAD) CANTIDAD, SUM(SUM(CANTIDAD)) OVER (PARTITION BY NOMBRE ) AS TOTAL FROM "
+				+ "         SELECT  ESTADO, NOMBRE ,SUM(CANTIDAD) CANTIDAD, ROUND (ratio_to_report (SUM(SUM(SUBTOTAL))) OVER (PARTITION BY NOMBRE) * 100,	0) AS PORCENTAJE FROM "
 				+ "                 ( SELECT  (CASE EXPE.ESTADO  "
 				+ "                         WHEN 'A' THEN 'NO ATENDIDOS'  "
 				+ "                         WHEN 'I' THEN 'ATENDIDOS'  "
@@ -28,15 +28,15 @@ QueryTable = {
 				+ "                         GROUP BY EXPE.ESTADO,UNID.NOMBRE "
 				+ "                 ) "
 				+ "                GROUP BY ESTADO, NOMBRE "
-				+ "                ORDER BY 1 " + "        ) ";
+				+ "        ) ";
 		console.log("tabla atendidosVsNo: " + query);
 		return query;
 	},
 	porRemitenteNoAtendidos : function(filtersObject) {
 		var filters = QueryFilters.createFilters(filtersObject);
-		var query = " SELECT    NOMBRE, ATENDIDOS, ROUND((ATENDIDOS/DECODE(TOTAL,0,1,TOTAL))*100,0) AS PORCENTAJE  "
+		var query = " SELECT    NOMBRE, ATENDIDOS, PORCENTAJE  "
 				+ "        FROM (  "
-				+ "       SELECT UNID2.NOMBRE, ESTADO, COUNT(DISTINCT IDEXPEDIENTE) ATENDIDOS, SUM(COUNT(IDEXPEDIENTE)) OVER (PARTITION BY ESTADO) TOTAL  "
+				+ "       SELECT UNID2.NOMBRE, ESTADO, COUNT(DISTINCT IDEXPEDIENTE) ATENDIDOS, ROUND (ratio_to_report (SUM(COUNT(IDEXPEDIENTE))) OVER (PARTITION BY ESTADO) * 100,	0) AS PORCENTAJE "
 				+ "                 FROM (  SELECT   "
 				+ "                                 (CASE EXPE.ESTADO  "
 				+ "                                         WHEN 'A' THEN 'NO ATENDIDOS'  "
@@ -121,9 +121,9 @@ QueryTable = {
 QueryBarchart = {
 	atendidosVsNoAtendidos : function(filtersObject) {
 		var filters = QueryFilters.createFilters(filtersObject);
-		var query = " SELECT    NOMBRE, ESTADO, CANTIDAD,TOTAL,ROUND((CANTIDAD/DECODE(TOTAL,0,1,TOTAL))*100,0) AS PORCENTAJE  "
+		var query = " SELECT    ESTADO, NOMBRE, CANTIDAD, PORCENTAJE  "
 				+ "        FROM (  "
-				+ "         SELECT  ESTADO, NOMBRE ,SUM(CANTIDAD) CANTIDAD, SUM(SUM(CANTIDAD)) OVER (PARTITION BY NOMBRE ) AS TOTAL FROM "
+				+ "         SELECT  ESTADO, NOMBRE ,SUM(CANTIDAD) CANTIDAD, ROUND (ratio_to_report (SUM(SUM(SUBTOTAL))) OVER (PARTITION BY NOMBRE) * 100,	0) AS PORCENTAJE FROM "
 				+ "                 ( SELECT  (CASE EXPE.ESTADO  "
 				+ "                         WHEN 'A' THEN 'NO ATENDIDOS'  "
 				+ "                         WHEN 'I' THEN 'ATENDIDOS'  "
@@ -143,7 +143,7 @@ QueryBarchart = {
 				+ "                         GROUP BY EXPE.ESTADO,UNID.NOMBRE "
 				+ "                 ) "
 				+ "                GROUP BY ESTADO, NOMBRE "
-				+ "                ORDER BY 2 " + "        ) ";
+				+ "        )  ORDER BY 1, 2";
 
 		console.log("barchart atendidosVsNoAtendidos: " + query);
 		return query;
@@ -153,9 +153,9 @@ QueryBarchart = {
 QueryPiechart = {
 	porRemitenteNoAtendidos : function(filtersObject) {
 		var filters = QueryFilters.createFilters(filtersObject);
-		var query = " SELECT    NOMBRE, ATENDIDOS, ROUND((ATENDIDOS/DECODE(TOTAL,0,1,TOTAL))*100,0) AS PORCENTAJE  "
+		var query = " SELECT    NOMBRE, ATENDIDOS, PORCENTAJE  "
 				+ "        FROM (  "
-				+ "       SELECT UNID2.NOMBRE, ESTADO, COUNT(DISTINCT IDEXPEDIENTE) ATENDIDOS, SUM(COUNT(IDEXPEDIENTE)) OVER (PARTITION BY ESTADO) TOTAL  "
+				+ "       SELECT UNID2.NOMBRE, ESTADO, COUNT(DISTINCT IDEXPEDIENTE) ATENDIDOS, ROUND (ratio_to_report (SUM(COUNT(IDEXPEDIENTE))) OVER (PARTITION BY ESTADO) * 100,	0) AS PORCENTAJE "
 				+ "                 FROM (  SELECT   "
 				+ "                                 (CASE EXPE.ESTADO  "
 				+ "                                         WHEN 'A' THEN 'NO ATENDIDOS'  "
@@ -195,9 +195,10 @@ QueryPiechart = {
 	},
 	porRemitenteAtendidos : function(filtersObject) {
 		var filters = QueryFilters.createFilters(filtersObject);
-		var query = " SELECT    NOMBRE, ATENDIDOS, ROUND((ATENDIDOS/DECODE(TOTAL,0,1,TOTAL))*100,0) AS PORCENTAJE  "
+		var query = " SELECT    NOMBRE, ATENDIDOS, PORCENTAJE  "
 				+ "        FROM (  "
-				+ "       SELECT UNID2.NOMBRE,ESTADO, COUNT(DISTINCT IDEXPEDIENTE) ATENDIDOS, SUM(COUNT(IDEXPEDIENTE)) OVER (PARTITION BY ESTADO) TOTAL    "
+				+ "       SELECT UNID2.NOMBRE,ESTADO, COUNT(DISTINCT IDEXPEDIENTE) ATENDIDOS, "
+				+ 					" ROUND (ratio_to_report (SUM(COUNT(IDEXPEDIENTE))) OVER (PARTITION BY ESTADO) * 100,	0) AS PORCENTAJE "
 				+ "                 FROM (  SELECT   "
 				+ "                                 (CASE EXPE.ESTADO  "
 				+ "                                         WHEN 'A' THEN 'NO ATENDIDOS'  "
@@ -291,4 +292,3 @@ QueryFilters = {
 		return consulta;
 	}
 }
-

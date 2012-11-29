@@ -5,9 +5,9 @@
 QueryTable = {
 	documentosRegistrados : function(filtersObject) {
 		var filters = QueryFilters.createFilters(filtersObject, "DOCU");
-		var query = " SELECT  ENTRADA, NOMBRE, CANTIDAD, ROUND((CANTIDAD/TOTAL)*100,0) AS PORCENTAJE  "
+		var query = " SELECT  ENTRADA, NOMBRE, CANTIDAD, PORCENTAJE  "
 				+ "          FROM (         "
-				+ "                 SELECT  ENTRADA, NOMBRE ,SUM(SUBTOTAL) CANTIDAD, SUM(SUM(SUBTOTAL)) OVER (PARTITION BY NOMBRE ) AS TOTAL FROM "
+				+ "                 SELECT  ENTRADA, NOMBRE , ROUND (ratio_to_report (SUM(SUM(SUBTOTAL))) OVER (PARTITION BY NOMBRE) * 100,	0) AS PORCENTAJE FROM "
 				+ "                 ( "
 				+ "                  SELECT NOMBRE, ENTRADA,SUM(SUBTOTAL) SUBTOTAL FROM( "
 				+ "                  SELECT    UNID.NOMBRE, "
@@ -41,11 +41,11 @@ QueryTable = {
 	},
 	expedientesAtendidos : function(filtersObject) {
 		var filters = QueryFilters.createFilters(filtersObject, "EXPE");
-		var query = " SELECT  NOMBRE, ESTADO, CANTIDAD,ROUND((CANTIDAD/DECODE(TOTAL,0,1,TOTAL))*100,0) AS PORCENTAJE  "
+		var query = " SELECT  NOMBRE, ESTADO, CANTIDAD, PORCENTAJE  "
 				+ "  FROM ( "
 				+ "   SELECT  NOMBRE, ESTADO, "
 				+ "                         SUM(SUBTOTAL) CANTIDAD "
-				+ "                         , SUM(SUM(SUBTOTAL)) OVER (PARTITION BY NOMBRE) AS TOTAL  "
+				+ "                         , ROUND (ratio_to_report (SUM(SUM(SUBTOTAL))) OVER (PARTITION BY NOMBRE) * 100,	0) AS PORCENTAJE "
 				+ "                  FROM ( "
 				+ "   SELECT "
 				+ "         (CASE EXPE.ESTADO WHEN 'A' THEN 'NO ATENDIDOS' WHEN 'I' THEN 'ATENDIDOS' END ) AS ESTADO, "
@@ -107,7 +107,7 @@ QueryPiechart = {
 				+ "                         WHERE UNID.IDUNIDAD IN (SELECT U.IDUNIDAD FROM UNIDAD U WHERE U.DEPENDENCIA = 48 ) "
 				+ "                         )  " + filters
 				+ "         GROUP BY UNID.NOMBRE,EXPE.ESTADO           "
-				+ "         )GROUP BY 2 desc";
+				+ "         ) ORDER BY 2 desc";
 		console.log("piechartExpedientesAtendidos: " + query);
 		return query;
 	},
@@ -134,7 +134,7 @@ QueryPiechart = {
 				+ " 								WHERE UNID2.IDUNIDAD IN (SELECT U.IDUNIDAD FROM UNIDAD U WHERE U.DEPENDENCIA = 48 )  "
 				+ " 						 )  " + filters
 				+ " 		  GROUP BY UNID.NOMBRE,DOCU.AUTOR "
-				+ " 	)                     " + " GROUP BY 2 desc ";
+				+ " 	) ORDER BY 2 desc ";
 		console.log("piechart documentosRegistrados: " + query);
 		return query;
 	}

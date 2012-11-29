@@ -3,9 +3,9 @@
 QueryTable = {
 	firmados : function(filtersObject) {
 		var filters = QueryFilters.createFilters(filtersObject);
-		var query = " SELECT   ESTADO, NOMBRE, CANTIDAD,TOTAL,ROUND((CANTIDAD/TOTAL)*100,0) AS PORCENTAJE  "
+		var query = " SELECT   ESTADO, NOMBRE, CANTIDAD, PORCENTAJE  "
 				+ "        FROM ( "
-				+ "                   SELECT  ESTADO, NOMBRE ,SUM(CANTIDAD) CANTIDAD, SUM(SUM(CANTIDAD)) OVER (PARTITION BY NOMBRE ) AS TOTAL FROM "
+				+ "                   SELECT  ESTADO, NOMBRE ,SUM(CANTIDAD) CANTIDAD, ROUND (ratio_to_report (SUM(SUM(SUBTOTAL))) OVER (PARTITION BY NOMBRE) * 100,	0) AS PORCENTAJE FROM "
 				+ "                                 ( "
 				+ "                        SELECT    UNID.NOMBRE, "
 				+ "                                        (CASE DOCU.FIRMADO "
@@ -35,9 +35,9 @@ QueryTable = {
 	},
 	enumerados : function(filtersObject) {
 		var filters = QueryFilters.createFilters(filtersObject);
-		var query = " SELECT   ESTADO, NOMBRE, CANTIDAD,TOTAL,ROUND((CANTIDAD/DECODE(TOTAL,0,1,TOTAL))*100,0) AS PORCENTAJE  "
+		var query = " SELECT   ESTADO, NOMBRE, CANTIDAD, PORCENTAJE  "
 				+ "        FROM ( "
-				+ " SELECT  ESTADO, NOMBRE ,SUM(CANTIDAD) CANTIDAD, SUM(SUM(CANTIDAD)) OVER (PARTITION BY NOMBRE ) AS TOTAL FROM "
+				+ " SELECT  ESTADO, NOMBRE ,SUM(CANTIDAD) CANTIDAD, ROUND (ratio_to_report (SUM(SUM(SUBTOTAL))) OVER (PARTITION BY NOMBRE) * 100,	0) AS PORCENTAJE FROM "
 				+ "                 (   SELECT    UNID.NOMBRE, "
 				+ "                        (CASE DOCU.ENUMERADO "
 				+ "                                 WHEN  'S' THEN 'ENUMERADOS' "
@@ -65,10 +65,10 @@ QueryTable = {
 	},
 	enumeradosFirmados : function(filtersObject) {
 		var filters = QueryFilters.createFilters(filtersObject);
-		var query = " SELECT   ESTADO, NOMBRE, CANTIDAD,TOTAL,ROUND((CANTIDAD/DECODE(TOTAL,0,1,TOTAL))*100,0) AS PORCENTAJE  "
+		var query = " SELECT   ESTADO, NOMBRE, CANTIDAD, PORCENTAJE  "
 				+ "        FROM ( "
 				+ "        SELECT ESTADO, NOMBRE,CANTIDAD, TOTAL FROM ( "
-				+ " SELECT  ESTADO, NOMBRE ,SUM(CANTIDAD) CANTIDAD, SUM(SUM(CANTIDAD)) OVER (PARTITION BY NOMBRE ) AS TOTAL FROM "
+				+ " SELECT  ESTADO, NOMBRE ,SUM(CANTIDAD) CANTIDAD, ROUND (ratio_to_report (SUM(SUM(SUBTOTAL))) OVER (PARTITION BY NOMBRE) * 100,	0) AS PORCENTAJE FROM "
 				+ "                 (   SELECT    UNID.NOMBRE, "
 				+ "                                 'ENUMERADOS Y FIRMADOS' AS ESTADO , "
 				+ "                            COUNT(DISTINCT DOCU.IDDOCUMENTO) AS CANTIDAD "
@@ -114,9 +114,9 @@ QueryTable = {
 QueryBarchart = {
 	firmados : function(filtersObject) {
 		var filters = QueryFilters.createFilters(filtersObject);
-		var query = " SELECT   ESTADO, NOMBRE, ROUND((CANTIDAD/TOTAL)*100,0) AS PORCENTAJE  "
+		var query = " SELECT   ESTADO, NOMBRE, PORCENTAJE  "
 				+ "        FROM ( "
-				+ "                   SELECT  ESTADO, NOMBRE ,SUM(CANTIDAD) CANTIDAD, SUM(SUM(CANTIDAD)) OVER (PARTITION BY NOMBRE ) AS TOTAL FROM "
+				+ "                   SELECT  ESTADO, NOMBRE , ROUND (ratio_to_report (SUM(SUM(SUBTOTAL))) OVER (PARTITION BY NOMBRE) * 100,	0) AS PORCENTAJE FROM "
 				+ "                                 ( "
 				+ "                        SELECT    UNID.NOMBRE, "
 				+ "                                        (CASE DOCU.FIRMADO "
@@ -140,15 +140,15 @@ QueryBarchart = {
 				+ filters
 				+ "                                         GROUP BY UNID.NOMBRE, DOCU.FIRMADO "
 				+ "                                   ) GROUP BY ESTADO, NOMBRE "
-				+ " )                                    ";
+				+ " ) ORDER BY 1, 2";
 		console.log("chart firmados: " + query);
 		return query;
 	},
 	enumerados : function(filtersObject) {
 		var filters = QueryFilters.createFilters(filtersObject);
-		var query = " SELECT   ESTADO, NOMBRE, ROUND((CANTIDAD/DECODE(TOTAL,0,1,TOTAL))*100,0) AS PORCENTAJE  "
+		var query = " SELECT   ESTADO, NOMBRE, PORCENTAJE  "
 				+ "        FROM ( "
-				+ " SELECT  ESTADO, NOMBRE ,SUM(CANTIDAD) CANTIDAD, SUM(SUM(CANTIDAD)) OVER (PARTITION BY NOMBRE ) AS TOTAL FROM "
+				+ " SELECT  ESTADO, NOMBRE ,SUM(CANTIDAD) CANTIDAD, ROUND (ratio_to_report (SUM(SUM(SUBTOTAL))) OVER (PARTITION BY NOMBRE) * 100,	0) AS PORCENTAJE FROM "
 				+ "                 (   SELECT    UNID.NOMBRE, "
 				+ "                        (CASE DOCU.ENUMERADO "
 				+ "                                 WHEN  'S' THEN 'ENUMERADOS' "
@@ -170,16 +170,16 @@ QueryBarchart = {
 				+ filters
 				+ "                GROUP BY UNID.NOMBRE, DOCU.ENUMERADO     "
 				+ "                    )GROUP BY ESTADO, NOMBRE "
-				+ "             )                      ";
+				+ " ) ORDER BY 1, 2";
 		console.log("chart enumerados: " + query);
 		return query;
 	},
 	enumeradosFirmados : function(filtersObject) {
 		var filters = QueryFilters.createFilters(filtersObject);
-		var query = " SELECT   ESTADO, NOMBRE, ROUND((CANTIDAD/DECODE(TOTAL,0,1,TOTAL))*100,0) AS PORCENTAJE  "
+		var query = " SELECT   ESTADO, NOMBRE, PORCENTAJE  "
 				+ "        FROM ( "
 				+ "        SELECT ESTADO, NOMBRE,CANTIDAD, TOTAL FROM ( "
-				+ " SELECT  ESTADO, NOMBRE ,SUM(CANTIDAD) CANTIDAD, SUM(SUM(CANTIDAD)) OVER (PARTITION BY NOMBRE ) AS TOTAL FROM "
+				+ " SELECT  ESTADO, NOMBRE ,SUM(CANTIDAD) CANTIDAD, ROUND (ratio_to_report (SUM(SUM(SUBTOTAL))) OVER (PARTITION BY NOMBRE) * 100,	0) AS PORCENTAJE FROM "
 				+ "                 (   SELECT    UNID.NOMBRE, "
 				+ "                                 'ENUMERADOS Y FIRMADOS' AS ESTADO , "
 				+ "                            COUNT(DISTINCT DOCU.IDDOCUMENTO) AS CANTIDAD "
@@ -216,7 +216,7 @@ QueryBarchart = {
 				+ "                GROUP BY UNID.NOMBRE, DOCU.ENUMERADO "
 				+ "                    )GROUP BY ESTADO, NOMBRE                    "
 				+ "             ) WHERE ESTADO IS NOT NULL "
-				+ "      )                      ";
+				+ " ) ORDER BY 1, 2";
 		console.log("chart enumeradosFirmados: " + query);
 		return query;
 	}

@@ -1,13 +1,12 @@
-	// ROUND (ratio_to_report (SUM(CANTIDAD)) OVER (PARTITION BY NOMBRE) * 100,
-	// 0) AS PORCENTAJE
+	// ROUND (ratio_to_report (SUM(CANTIDAD)) OVER (PARTITION BY NOMBRE) * 100,	0) AS PORCENTAJE
 
 //definicion de query de las tablas
 QueryTable = {
 	registrados : function(filtersObject) {
 		var filters = QueryFilters.createFilters(filtersObject);
-		var query = " SELECT  NOMBRE, ENTRADA, CANTIDAD, ROUND((CANTIDAD/TOTAL)*100,0) AS PORCENTAJE  "
+		var query = " SELECT  ENTRADA, NOMBRE, CANTIDAD, PORCENTAJE  "
 				+ "          FROM (         "
-				+ "                 SELECT  ENTRADA, NOMBRE ,SUM(SUBTOTAL) CANTIDAD, SUM(SUM(SUBTOTAL)) OVER (PARTITION BY NOMBRE ) AS TOTAL FROM "
+				+ "                 SELECT  ENTRADA, NOMBRE ,SUM(SUBTOTAL) CANTIDAD, ROUND (ratio_to_report (SUM(SUM(SUBTOTAL))) OVER (PARTITION BY NOMBRE) * 100,	0) AS PORCENTAJE FROM "
 				+ "                 ( "
 				+ "                  SELECT NOMBRE, ENTRADA,SUM(SUBTOTAL) SUBTOTAL FROM( "
 				+ "                  SELECT    UNID.NOMBRE, "
@@ -38,11 +37,11 @@ QueryTable = {
 	},
 	enMesaDePartes : function(filtersObject) {
 		var filters = QueryFilters.createFilters(filtersObject);
-		var query = " SELECT  NOMBRE, ENTRADA, CANTIDAD, ROUND((CANTIDAD/TOTAL)*100,0) AS PORCENTAJE  "
+		var query = " SELECT  NOMBRE, ENTRADA, CANTIDAD, PORCENTAJE  "
 				+ "          FROM (         "
 				+ "         SELECT  NOMBRE, ENTRADA, "
 				+ "                         SUM(SUBTOTAL) CANTIDAD "
-				+ "                         , SUM(SUM(SUBTOTAL)) OVER (PARTITION BY ENTRADA ) AS TOTAL  "
+				+ "                         , ROUND (ratio_to_report (SUM(SUM(SUBTOTAL))) OVER (PARTITION BY NOMBRE) * 100,	0) AS PORCENTAJE "
 				+ "                  FROM ( SELECT    PROC.NOMBRE, "
 				+ "                                     DECODE(DOCU.AUTOR,'Mesa de Partes','MESA DE PARTES','USUARIO FINAL') AS ENTRADA "
 				+ "                                     ,count(DISTINCT DOCU.IDDOCUMENTO) SUBTOTAL "
@@ -69,11 +68,11 @@ QueryTable = {
 	},
 	enUsuarioFinal : function(filtersObject) {
 		var filters = QueryFilters.createFilters(filtersObject);
-		var query = " SELECT  NOMBRE, ENTRADA, CANTIDAD, ROUND((CANTIDAD/TOTAL)*100,0) AS PORCENTAJE  "
+		var query = " SELECT  NOMBRE, ENTRADA, CANTIDAD, PORCENTAJE  "
 				+ "          FROM (         "
 				+ "         SELECT  NOMBRE, ENTRADA, "
 				+ "                         SUM(SUBTOTAL) CANTIDAD "
-				+ "                         , SUM(SUM(SUBTOTAL)) OVER (PARTITION BY ENTRADA ) AS TOTAL  "
+				+ "                         , ROUND (ratio_to_report (SUM(SUM(SUBTOTAL))) OVER (PARTITION BY NOMBRE) * 100,	0) AS PORCENTAJE "
 				+ "                  FROM ( SELECT    PROC.NOMBRE, "
 				+ "                                     DECODE(DOCU.AUTOR,'Mesa de Partes','MESA DE PARTES','USUARIO FINAL') AS ENTRADA "
 				+ "                                     ,count(DISTINCT DOCU.IDDOCUMENTO) SUBTOTAL "
@@ -104,9 +103,9 @@ QueryTable = {
 QueryBarchart = {
 	registrados : function(filtersObject) {
 		var filters = QueryFilters.createFilters(filtersObject);
-		var query = " SELECT  ENTRADA, NOMBRE, ROUND((CANTIDAD/TOTAL)*100,0) AS PORCENTAJE  "
+		var query = " SELECT  ENTRADA, NOMBRE, PORCENTAJE  "
 				+ "          FROM (         "
-				+ "                 SELECT  ENTRADA, NOMBRE ,SUM(SUBTOTAL) CANTIDAD, SUM(SUM(SUBTOTAL)) OVER (PARTITION BY NOMBRE ) AS TOTAL FROM "
+				+ "                 SELECT  ENTRADA, NOMBRE ,SUM(SUBTOTAL) CANTIDAD, ROUND (ratio_to_report (SUM(SUM(SUBTOTAL))) OVER (PARTITION BY NOMBRE) * 100,	0) AS PORCENTAJE FROM "
 				+ "                 ( "
 				+ "                  SELECT NOMBRE, ENTRADA,SUM(SUBTOTAL) SUBTOTAL FROM( "
 				+ "                  SELECT    UNID.NOMBRE, "
@@ -130,7 +129,7 @@ QueryBarchart = {
 				+ "                           GROUP BY NOMBRE,ENTRADA "
 				+ "                       ) "
 				+ "                   GROUP BY NOMBRE, ENTRADA  "
-				+ "                   ORDER BY 1       " + " ) ";
+				+ " )  ORDER BY 1, 2";
 		console.log("chartRegistrados: " + query);
 		return query;
 	}
@@ -140,11 +139,11 @@ QueryBarchart = {
 QueryPiechart = {
 	chartEnMesaDePartes : function(filtersObject) {
 		var filters = QueryFilters.createFilters(filtersObject);
-		var query = " SELECT  ENTRADA, ROUND((CANTIDAD/TOTAL)*100,0) AS PORCENTAJE  "
+		var query = " SELECT  ENTRADA, CANTIDAD, PORCENTAJE  "
 				+ "          FROM (         "
 				+ "         SELECT  NOMBRE, ENTRADA, "
 				+ "                         SUM(SUBTOTAL) CANTIDAD "
-				+ "                         , SUM(SUM(SUBTOTAL)) OVER (PARTITION BY ENTRADA ) AS TOTAL  "
+				+ "                         , ROUND (ratio_to_report (SUM(SUM(SUBTOTAL))) OVER (PARTITION BY NOMBRE) * 100,	0) AS PORCENTAJE "
 				+ "                  FROM ( SELECT    PROC.NOMBRE, "
 				+ "                                     DECODE(DOCU.AUTOR,'Mesa de Partes','MESA DE PARTES','USUARIO FINAL') AS ENTRADA "
 				+ "                                     ,count(DISTINCT DOCU.IDDOCUMENTO) SUBTOTAL "
@@ -165,17 +164,17 @@ QueryPiechart = {
 				+ "                         GROUP BY PROC.NOMBRE, DOCU.AUTOR "
 				+ "                ) "
 				+ "                   GROUP BY ENTRADA  "
-				+ "                   ORDER BY 2 desc " + " ) ";
+				+ " ) ORDER BY 2 desc ";
 		console.log("chartEnMesaDePartes: " + query);
 		return query;
 	},
 	chartEnUsuarioFinal : function(filtersObject) {
 		var filters = QueryFilters.createFilters(filtersObject);
-		var query = " SELECT  ENTRADA, ROUND((CANTIDAD/TOTAL)*100,0) AS PORCENTAJE  "
+		var query = " SELECT  ENTRADA, CANTIDAD, PORCENTAJE  "
 				+ "          FROM (         "
 				+ "         SELECT  NOMBRE, ENTRADA, "
 				+ "                         SUM(SUBTOTAL) CANTIDAD "
-				+ "                         , SUM(SUM(SUBTOTAL)) OVER (PARTITION BY ENTRADA ) AS TOTAL  "
+				+ "                         , ROUND (ratio_to_report (SUM(SUM(SUBTOTAL))) OVER (PARTITION BY NOMBRE) * 100,	0) AS PORCENTAJE "
 				+ "                  FROM ( SELECT    PROC.NOMBRE, "
 				+ "                                     DECODE(DOCU.AUTOR,'Mesa de Partes','MESA DE PARTES','USUARIO FINAL') AS ENTRADA "
 				+ "                                     ,count(DISTINCT DOCU.IDDOCUMENTO) SUBTOTAL "
@@ -196,7 +195,7 @@ QueryPiechart = {
 				+ "                         GROUP BY PROC.NOMBRE, DOCU.AUTOR "
 				+ "                ) "
 				+ "                   GROUP BY ENTRADA  "
-				+ "                   ORDER BY 2 desc " + " ) ";
+				+ " ) ORDER BY 2 desc ";
 		console.log(" chartEnUsuarioFinal: " + query);
 		return query;
 	}
